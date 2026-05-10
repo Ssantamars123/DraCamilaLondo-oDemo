@@ -1,263 +1,178 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
 export function Hero() {
-  const containerRef = useRef<HTMLElement>(null);
-  const h1Ref = useRef<HTMLHeadingElement>(null);
-  const subRef = useRef<HTMLParagraphElement>(null);
-  const ctaRef = useRef<HTMLDivElement>(null);
-  const imageRef = useRef<HTMLDivElement>(null);
-  const statsRef = useRef<HTMLDivElement>(null);
-  const blobRef1 = useRef<HTMLDivElement>(null);
-  const blobRef2 = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const blob1Ref   = useRef<HTMLDivElement>(null);
+  const blob2Ref   = useRef<HTMLDivElement>(null);
+  const imgRef     = useRef<HTMLDivElement>(null);
 
-  useGSAP(
-    () => {
-      // Blob float animation
-      gsap.to(blobRef1.current, {
-        y: -30,
-        x: 15,
-        duration: 6,
-        ease: "sine.inOut",
-        repeat: -1,
-        yoyo: true,
-      });
-      gsap.to(blobRef2.current, {
-        y: 25,
-        x: -20,
-        duration: 8,
-        ease: "sine.inOut",
-        repeat: -1,
-        yoyo: true,
-        delay: 1,
-      });
+  useGSAP(() => {
+    // Floating blobs
+    gsap.to(blob1Ref.current, { y: -24, x: 12, duration: 7, ease: "sine.inOut", repeat: -1, yoyo: true });
+    gsap.to(blob2Ref.current, { y: 20, x: -16, duration: 9, ease: "sine.inOut", repeat: -1, yoyo: true, delay: 1.5 });
 
-      // Image entrance
-      gsap.fromTo(
-        imageRef.current,
-        { scale: 1.1, opacity: 0, y: 40 },
-        { scale: 1, opacity: 1, y: 0, duration: 1.4, ease: "power3.out", delay: 0.2 }
-      );
+    // Image entrance
+    gsap.fromTo(imgRef.current,
+      { x: 60, opacity: 0, scale: 0.95 },
+      { x: 0, opacity: 1, scale: 1, duration: 1.3, ease: "power3.out", delay: 0.3 }
+    );
 
-      // Badge pulse
-      gsap.to(".hero-badge", {
-        boxShadow: "0 0 20px rgba(43,126,255,0.5), 0 0 40px rgba(43,126,255,0.2)",
-        duration: 2,
-        ease: "sine.inOut",
-        repeat: -1,
-        yoyo: true,
-      });
+    // Text stagger
+    const tl = gsap.timeline({ delay: 0.2 });
+    tl.fromTo(".hero-pill",   { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" })
+      .fromTo(".hero-line",   { y: "105%" },          { y: "0%", duration: 0.8, stagger: 0.12, ease: "power4.out" }, "-=0.2")
+      .fromTo(".hero-sub",    { y: 16, opacity: 0 },  { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, "-=0.4")
+      .fromTo(".hero-btns",   { y: 16, opacity: 0 },  { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, "-=0.3")
+      .fromTo(".hero-stats",  { y: 16, opacity: 0 },  { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" }, "-=0.3");
 
-      // Text reveals
-      const tl = gsap.timeline({ delay: 0.3 });
-      tl.fromTo(
-        ".hero-tag",
-        { y: 20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }
-      )
-        .fromTo(
-          ".hero-word",
-          { y: "110%", opacity: 0 },
-          { y: "0%", opacity: 1, duration: 0.9, stagger: 0.07, ease: "power4.out" },
-          "-=0.2"
-        )
-        .fromTo(
-          subRef.current,
-          { y: 20, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.7, ease: "power3.out" },
-          "-=0.4"
-        )
-        .fromTo(
-          ctaRef.current,
-          { y: 20, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" },
-          "-=0.3"
-        )
-        .fromTo(
-          statsRef.current,
-          { y: 20, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" },
-          "-=0.3"
-        );
-    },
-    { scope: containerRef }
-  );
+    // Badge pulse ring
+    gsap.to(".badge-ring", {
+      scale: 1.15, opacity: 0, duration: 1.6, ease: "power2.out", repeat: -1, transformOrigin: "center center"
+    });
+  }, { scope: sectionRef });
 
-  const scrollTo = (id: string) => {
-    document.querySelector(id)?.scrollIntoView({ behavior: "smooth" });
-  };
+  const go = (id: string) => document.querySelector(id)?.scrollIntoView({ behavior: "smooth" });
 
   return (
     <section
       id="inicio"
-      ref={containerRef}
-      className="relative min-h-screen flex items-center pt-20 overflow-hidden"
-      style={{ background: "linear-gradient(135deg, #060C1A 0%, #0D1B35 60%, #0A1628 100%)" }}
+      ref={sectionRef}
+      className="relative min-h-screen flex items-center pt-16 overflow-hidden bg-white"
     >
-      {/* Animated blobs */}
-      <div
-        ref={blobRef1}
-        className="absolute top-1/4 right-1/4 w-[500px] h-[500px] rounded-full pointer-events-none"
-        style={{
-          background: "radial-gradient(circle, rgba(43,126,255,0.15) 0%, transparent 70%)",
-          filter: "blur(40px)",
-        }}
-      />
-      <div
-        ref={blobRef2}
-        className="absolute bottom-1/3 left-1/6 w-[400px] h-[400px] rounded-full pointer-events-none"
-        style={{
-          background: "radial-gradient(circle, rgba(96,165,250,0.1) 0%, transparent 70%)",
-          filter: "blur(60px)",
-        }}
-      />
+      {/* Background blobs */}
+      <div ref={blob1Ref} className="absolute top-16 right-[10%] w-[520px] h-[520px] rounded-full pointer-events-none"
+        style={{ background: "radial-gradient(circle, #DBEAFE 0%, #EFF6FF 40%, transparent 75%)" }} />
+      <div ref={blob2Ref} className="absolute bottom-10 left-[5%] w-[380px] h-[380px] rounded-full pointer-events-none"
+        style={{ background: "radial-gradient(circle, #BFDBFE 0%, #EFF6FF 50%, transparent 75%)" }} />
 
-      {/* Grid lines */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.04]"
+      {/* Dot grid */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.35]"
         style={{
-          backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)",
-          backgroundSize: "60px 60px",
-        }}
-      />
+          backgroundImage: "radial-gradient(#BFDBFE 1px, transparent 1px)",
+          backgroundSize: "32px 32px",
+        }} />
 
-      <div className="relative max-w-7xl mx-auto px-6 w-full grid md:grid-cols-2 gap-12 items-center py-20 z-10">
-        {/* LEFT */}
-        <div className="flex flex-col gap-7">
-          <div className="hero-tag inline-flex items-center gap-2.5 bg-blue-500/10 border border-blue-500/30 rounded-full px-5 py-2 w-fit hero-badge">
-            <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
-            <span className="text-blue-300 text-xs font-semibold tracking-widest uppercase">
-              Consultorio disponible
+      <div className="relative max-w-7xl mx-auto px-6 w-full grid md:grid-cols-2 gap-10 items-center py-20 z-10">
+
+        {/* ── LEFT TEXT ── */}
+        <div className="flex flex-col gap-6">
+
+          {/* Pill */}
+          <div className="hero-pill inline-flex items-center gap-2.5 bg-blue-50 border border-blue-200 rounded-full px-4 py-2 w-fit">
+            <span className="relative flex h-2 w-2">
+              <span className="badge-ring absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500" />
             </span>
+            <span className="text-blue-600 text-xs font-bold tracking-widest uppercase">Consultorio disponible · Medellín</span>
           </div>
 
-          <h1 ref={h1Ref} className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.0] tracking-tight">
-            {["Tu", "sonrisa,"].map((w) => (
-              <span key={w} className="overflow-clip inline-block mr-3">
-                <span className="hero-word inline-block text-white">{w}</span>
-              </span>
-            ))}
-            <br />
-            {["nuestro"].map((w) => (
-              <span key={w} className="overflow-clip inline-block mr-3">
-                <span className="hero-word inline-block gradient-text">{w}</span>
-              </span>
-            ))}
-            {["arte."].map((w) => (
-              <span key={w} className="overflow-clip inline-block">
-                <span className="hero-word inline-block text-white">{w}</span>
-              </span>
-            ))}
+          {/* Headline */}
+          <h1 className="text-[clamp(2.6rem,6vw,4.5rem)] font-black text-slate-900 leading-[1.0] tracking-tight">
+            <span className="clip block"><span className="hero-line block">Dra. Camila</span></span>
+            <span className="clip block"><span className="hero-line block">Londoño</span></span>
+            <span className="clip block">
+              <span className="hero-line block text-gradient">Galeano</span>
+            </span>
           </h1>
 
-          <p
-            ref={subRef}
-            className="text-blue-100/70 text-lg leading-relaxed max-w-md"
-          >
-            Odontología de calidad con un toque humano. Tecnología moderna,
-            resultados que transforman vidas.
+          {/* Sub */}
+          <p className="hero-sub text-slate-500 text-lg leading-relaxed max-w-sm">
+            Odontóloga con <strong className="text-slate-800 font-semibold">10 años de experiencia</strong> y más de
+            {" "}<strong className="text-slate-800 font-semibold">7,000 pacientes</strong> transformados.
+            Ortodoncia, estética dental e implantes en Medellín.
           </p>
 
-          <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4">
+          {/* Buttons */}
+          <div className="hero-btns flex flex-col sm:flex-row gap-3 pt-1">
             <button
-              onClick={() => scrollTo("#contacto")}
-              className="group relative overflow-hidden bg-blue-600 text-white font-bold px-8 py-4 rounded-full transition-all duration-300 hover:shadow-[0_0_30px_rgba(43,126,255,0.5)] active:scale-95"
+              onClick={() => go("#contacto")}
+              className="group relative overflow-hidden inline-flex items-center justify-center gap-2 bg-blue-600 text-white font-bold px-8 py-4 rounded-full hover:bg-blue-700 transition-colors duration-200 hover:shadow-xl hover:shadow-blue-200 active:scale-[0.97]"
             >
-              <span className="relative z-10 flex items-center gap-2">
-                Agendar cita
-                <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
-              </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-700 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+              Agendar cita
+              <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">→</span>
             </button>
-
-            <button
-              onClick={() => scrollTo("#resultados")}
-              className="group flex items-center gap-2 text-white/80 font-semibold px-8 py-4 rounded-full border border-white/10 hover:border-blue-400/50 hover:text-white transition-all duration-300"
+            <a
+              href="https://api.whatsapp.com/send?phone=573102481468&text=Hola,%20quiero%20agendar%20una%20cita"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center justify-center gap-2 border-2 border-blue-200 text-blue-700 font-bold px-8 py-4 rounded-full hover:border-blue-400 hover:bg-blue-50 transition-all duration-200 active:scale-[0.97]"
             >
-              Ver resultados
-              <span className="w-5 h-5 rounded-full border border-white/30 flex items-center justify-center text-xs transition-all duration-300 group-hover:border-blue-400 group-hover:bg-blue-500/20">
-                ↓
-              </span>
-            </button>
+              <span className="text-lg">💬</span> WhatsApp
+            </a>
           </div>
 
           {/* Stats */}
-          <div ref={statsRef} className="flex gap-10 pt-2">
+          <div className="hero-stats flex gap-8 pt-2 border-t border-blue-50">
             {[
-              { value: "8+", label: "Años de exp." },
-              { value: "2K+", label: "Pacientes" },
-              { value: "4.9★", label: "Calificación" },
-            ].map((s) => (
-              <div key={s.label} className="flex flex-col gap-1">
-                <span className="text-2xl font-bold gradient-text">{s.value}</span>
-                <span className="text-blue-300/60 text-xs uppercase tracking-widest">{s.label}</span>
+              { val: "10+", lbl: "Años de exp." },
+              { val: "7K+", lbl: "Pacientes" },
+              { val: "5.0★", lbl: "56 reseñas" },
+            ].map(s => (
+              <div key={s.lbl} className="flex flex-col gap-0.5">
+                <span className="text-2xl font-black text-blue-600">{s.val}</span>
+                <span className="text-xs text-slate-400 uppercase tracking-widest">{s.lbl}</span>
               </div>
             ))}
           </div>
         </div>
 
-        {/* RIGHT */}
-        <div ref={imageRef} className="relative flex justify-center">
-          {/* Glow ring behind image */}
-          <div
-            className="absolute inset-0 rounded-[2.5rem]"
-            style={{
-              background: "radial-gradient(circle at 50% 50%, rgba(43,126,255,0.25) 0%, transparent 70%)",
-            }}
-          />
+        {/* ── RIGHT IMAGE ── */}
+        <div ref={imgRef} className="relative flex justify-center">
+          {/* Decorative ring */}
+          <div className="absolute inset-[10%] rounded-full border-2 border-blue-100 pointer-events-none" />
+          <div className="absolute inset-[5%] rounded-full border border-blue-50 pointer-events-none" />
 
-          <div className="relative w-full max-w-[380px]">
-            {/* Frame */}
-            <div className="absolute -inset-3 rounded-[3rem] border border-blue-500/20" />
-            <div className="absolute -inset-6 rounded-[3.5rem] border border-blue-500/10" />
+          <div className="relative w-full max-w-[360px]">
+            {/* Blue shape behind */}
+            <div className="absolute -inset-4 rounded-[3rem] bg-gradient-to-br from-blue-100 to-blue-200 rotate-3 pointer-events-none" />
 
-            <div className="relative rounded-[2.5rem] overflow-hidden aspect-[3/4] shadow-2xl shadow-blue-900/50">
+            {/* Photo */}
+            <div className="relative rounded-[2.5rem] overflow-hidden aspect-[3/4] shadow-2xl shadow-blue-200/60">
               <Image
                 src="/DraCamila.png"
-                alt="Dra. Camila Londoño"
+                alt="Dra. Camila Londoño Galeano"
                 fill
                 className="object-cover object-top"
                 priority
               />
-              {/* Subtle gradient overlay at bottom */}
-              <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-[#060C1A]/60 to-transparent" />
             </div>
 
-            {/* Badge bottom-left */}
-            <div className="absolute -bottom-5 -left-6 glass rounded-2xl px-4 py-3 flex items-center gap-3 shadow-xl">
-              <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-lg">
-                🦷
-              </div>
+            {/* Badge — bottom left */}
+            <div className="absolute -bottom-5 -left-5 glass-white rounded-2xl shadow-lg shadow-blue-100 px-4 py-3 flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-xl">🦷</div>
               <div>
-                <p className="text-xs text-blue-200/60">Especialista en</p>
-                <p className="text-sm font-bold text-white">Ortodoncia & Estética</p>
+                <p className="text-[10px] text-slate-400 uppercase tracking-wide">Matrícula</p>
+                <p className="text-sm font-black text-slate-800">1033652489</p>
               </div>
             </div>
 
-            {/* Badge top-right */}
-            <div
-              className="absolute -top-5 -right-4 rounded-2xl px-4 py-3 shadow-lg"
-              style={{ background: "linear-gradient(135deg, #2B7EFF, #1A5CB8)" }}
-            >
-              <p className="text-xs text-blue-100/70">Calificación</p>
+            {/* Badge — top right */}
+            <div className="absolute -top-4 -right-4 bg-blue-600 text-white rounded-2xl shadow-lg px-4 py-3">
+              <p className="text-[10px] text-blue-200 uppercase tracking-wide">Reseñas</p>
               <div className="flex items-center gap-1">
-                <span className="text-xl font-bold text-white">4.9</span>
-                <span className="text-yellow-300">★</span>
+                <span className="text-xl font-black">5.0</span>
+                <span className="text-yellow-300 text-sm">★</span>
               </div>
+            </div>
+
+            {/* Badge — right middle */}
+            <div className="absolute top-1/2 -right-8 -translate-y-1/2 glass-blue rounded-2xl px-3 py-2 shadow-sm border border-blue-200">
+              <p className="text-[10px] text-blue-500 font-bold uppercase tracking-widest">Fundación</p>
+              <p className="text-xs font-bold text-slate-800 leading-tight max-w-[90px]">Uni. Autónoma<br/>Américas</p>
             </div>
           </div>
         </div>
       </div>
 
       {/* Scroll cue */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
-        <span className="text-blue-400/40 text-[10px] tracking-[0.3em] uppercase">Scroll</span>
-        <div className="w-px h-10 bg-gradient-to-b from-blue-400/40 to-transparent" />
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5">
+        <span className="text-[9px] text-slate-300 tracking-[0.3em] uppercase">Scroll</span>
+        <div className="w-px h-8 bg-gradient-to-b from-blue-200 to-transparent" />
       </div>
     </section>
   );
