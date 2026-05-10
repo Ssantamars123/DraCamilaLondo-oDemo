@@ -4,72 +4,108 @@ import { useRef } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { motion } from "framer-motion";
 import { BeforeAfterSlider } from "./BeforeAfterSlider";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const cases = [
-  { before: "/antes1.png", after: "/despues1.png", label: "Blanqueamiento dental",         desc: "Dientes hasta 8 tonos más blancos en una sola sesión." },
-  { before: "/antes2.png", after: "/despues2.png", label: "Ortodoncia + Carillas",          desc: "Alineación completa y diseño de sonrisa con carillas de porcelana." },
-  { before: "/antes3.png", after: "/despues3.png", label: "Diseño de Sonrisa",              desc: "Remodelado estético con alineación y pulido profesional." },
+  { before: "/antes1.png", after: "/despues1.png", label: "Blanqueamiento dental",   desc: "Dientes hasta 8 tonos más blancos en una sola sesión." },
+  { before: "/antes2.png", after: "/despues2.png", label: "Ortodoncia + Carillas",   desc: "Alineación completa y carillas de porcelana." },
+  { before: "/antes3.png", after: "/despues3.png", label: "Diseño de Sonrisa",       desc: "Remodelado estético con alineación y pulido profesional." },
 ];
 
 export function Results() {
   const ref = useRef<HTMLElement>(null);
 
   useGSAP(() => {
-    gsap.fromTo(".res-header",
-      { y: 40, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, ease: "power3.out",
-        scrollTrigger: { trigger: ref.current, start: "top 80%" } }
+    // Section title clip reveal
+    gsap.fromTo(".res-line",
+      { y: "110%", opacity: 0 },
+      {
+        y: "0%", opacity: 1, duration: 0.9, stagger: 0.12, ease: "power4.out",
+        scrollTrigger: { trigger: ref.current, start: "top 78%" },
+      }
     );
-    gsap.fromTo(".res-item",
-      { y: 60, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, stagger: 0.18, ease: "power3.out",
-        scrollTrigger: { trigger: ".res-grid", start: "top 75%" } }
-    );
+
+    // Cards from alternating sides
+    gsap.fromTo(".res-card-0", { x: -60, opacity: 0 }, { x: 0, opacity: 1, duration: 0.9, ease: "power3.out", scrollTrigger: { trigger: ".res-grid", start: "top 80%" } });
+    gsap.fromTo(".res-card-1", { y: 60, opacity: 0 },  { y: 0,  opacity: 1, duration: 0.9, ease: "power3.out", scrollTrigger: { trigger: ".res-grid", start: "top 80%" }, delay: 0.12 });
+    gsap.fromTo(".res-card-2", { x: 60, opacity: 0 },  { x: 0,  opacity: 1, duration: 0.9, ease: "power3.out", scrollTrigger: { trigger: ".res-grid", start: "top 80%" }, delay: 0.24 });
   }, { scope: ref });
 
   return (
     <section id="resultados" ref={ref} className="py-28 bg-white relative overflow-hidden">
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-blue-200 to-transparent" />
 
+      {/* Decorative blob */}
+      <div className="absolute top-1/2 left-0 w-72 h-72 rounded-full -translate-y-1/2 pointer-events-none"
+        style={{ background: "radial-gradient(circle, #DBEAFE 0%, transparent 70%)", filter: "blur(50px)" }} />
+
       <div className="max-w-7xl mx-auto px-6">
-        <div className="res-header text-center mb-14">
-          <div className="inline-flex items-center gap-2 bg-blue-50 border border-blue-200 rounded-full px-4 py-1.5 mb-4 shadow-sm">
+        {/* Header */}
+        <div className="text-center mb-14">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4 }}
+            className="inline-flex items-center gap-2 bg-blue-50 border border-blue-200 rounded-full px-4 py-1.5 mb-5 shadow-sm"
+          >
             <span className="text-blue-600 text-xs font-bold tracking-widest uppercase">Resultados reales</span>
+          </motion.div>
+
+          <div className="overflow-hidden">
+            <div className="res-line text-4xl md:text-5xl font-black text-slate-900 mb-1">
+              Arrastra y ve la
+            </div>
           </div>
-          <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-4">
-            Arrastra y ve la <span className="text-gradient">transformación</span>
-          </h2>
+          <div className="overflow-hidden">
+            <div className="res-line text-4xl md:text-5xl font-black text-gradient mb-4">
+              transformación
+            </div>
+          </div>
           <p className="text-slate-500 text-lg max-w-xl mx-auto">
-            Casos reales de pacientes de la Dra. Camila. Arrastra el slider para comparar antes y después.
+            Casos reales de pacientes de la Dra. Camila. Arrastra el slider para comparar.
           </p>
         </div>
 
+        {/* Grid */}
         <div className="res-grid grid md:grid-cols-3 gap-8">
           {cases.map((c, i) => (
-            <div key={i} className="res-item flex flex-col gap-4">
-              <BeforeAfterSlider before={c.before} after={c.after} label={c.label} />
-              <div className="bg-blue-50 border border-blue-100 rounded-2xl px-4 py-3">
+            <div key={i} className={`res-card-${i} flex flex-col gap-4`}>
+              <motion.div whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 200, damping: 20 }}>
+                <BeforeAfterSlider before={c.before} after={c.after} label={c.label} />
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.3 + i * 0.1 }}
+                className="bg-blue-50 border border-blue-100 rounded-2xl px-4 py-3"
+              >
                 <p className="text-slate-800 font-bold text-sm">{c.label}</p>
                 <p className="text-slate-500 text-xs mt-1 leading-relaxed">{c.desc}</p>
-              </div>
+              </motion.div>
             </div>
           ))}
         </div>
 
+        {/* CTA */}
         <div className="text-center mt-14">
-          <a
+          <motion.a
             href="https://api.whatsapp.com/send?phone=573102481468&text=Hola,%20quiero%20saber%20más%20sobre%20los%20tratamientos"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group inline-flex items-center gap-3 bg-blue-600 text-white font-bold px-10 py-4 rounded-full hover:bg-blue-700 hover:shadow-xl hover:shadow-blue-200 active:scale-95 transition-all duration-200"
+            target="_blank" rel="noopener noreferrer"
+            whileHover={{ scale: 1.06, boxShadow: "0 12px 40px rgba(37,99,235,0.3)" }}
+            whileTap={{ scale: 0.97 }}
+            className="inline-flex items-center gap-3 bg-blue-600 text-white font-bold px-10 py-4 rounded-full"
           >
             <span className="text-xl">💬</span>
             Quiero mi transformación
-            <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
-          </a>
+            <motion.span animate={{ x: [0, 4, 0] }} transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}>
+              →
+            </motion.span>
+          </motion.a>
         </div>
       </div>
     </section>
