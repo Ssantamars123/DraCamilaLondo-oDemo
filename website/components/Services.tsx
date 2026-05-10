@@ -5,19 +5,28 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { motion } from "framer-motion";
+import {
+  AlignCenter, Sparkles, Anchor, ClipboardList,
+  Gem, Heart, Microscope, Scissors, Moon, ArrowRight,
+  type LucideIcon,
+} from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const services = [
-  { icon: "🦷", title: "Ortodoncia",                   desc: "Convencional, invisible y autoligado. Alineamos tu sonrisa de forma progresiva.",       price: null,             tag: "Más solicitado", color: "from-blue-500 to-blue-700",     light: "bg-blue-50 text-blue-600"   },
-  { icon: "✨", title: "Blanqueamiento & Diseño",       desc: "Blanqueamiento profesional y diseño personalizado. Resultados visibles desde la 1ª sesión.", price: null,          tag: null,             color: "from-sky-400 to-blue-600",      light: "bg-sky-50 text-sky-600"     },
-  { icon: "🔩", title: "Implantes Dentales",            desc: "Reemplaza dientes perdidos con implantes de titanio para una mordida natural de por vida.", price: null,          tag: null,             color: "from-indigo-500 to-blue-700",   light: "bg-indigo-50 text-indigo-600"},
-  { icon: "🩺", title: "Consulta Inicial",              desc: "Evaluación completa de tu salud oral con diagnóstico y plan de tratamiento personalizado.", price: "$80.000 COP", tag: "Precio fijo",    color: "from-cyan-500 to-blue-600",     light: "bg-cyan-50 text-cyan-700"   },
-  { icon: "💎", title: "Estética Dental",               desc: "Carillas de porcelana, coronas y remodelado. El look dental que siempre soñaste.",          price: null,          tag: "Nuevo",          color: "from-violet-500 to-blue-700",   light: "bg-violet-50 text-violet-600"},
-  { icon: "❤️", title: "Periodoncia",                   desc: "Tratamiento de encías, injertos gingivales y regeneración ósea para una base dental sana.", price: null,          tag: null,             color: "from-rose-400 to-pink-600",     light: "bg-rose-50 text-rose-600"   },
-  { icon: "🔬", title: "Endodoncia",                    desc: "Tratamientos de conductos sin dolor para salvar tu diente y eliminar la infección.",        price: null,          tag: null,             color: "from-teal-500 to-blue-600",     light: "bg-teal-50 text-teal-600"   },
-  { icon: "🏥", title: "Cirugía Oral",                  desc: "Extracciones, muelas del juicio y procedimientos quirúrgicos con máxima comodidad.",        price: null,          tag: null,             color: "from-blue-600 to-blue-800",     light: "bg-blue-50 text-blue-700"   },
-  { icon: "😁", title: "Férula para Bruxismo",          desc: "Protector dental personalizado para evitar el desgaste por rechinamiento nocturno.",        price: null,          tag: null,             color: "from-amber-400 to-orange-500",  light: "bg-amber-50 text-amber-600" },
+const services: {
+  Icon: LucideIcon; title: string; desc: string;
+  price: string | null; tag: string | null;
+  color: string; light: string;
+}[] = [
+  { Icon: AlignCenter,   title: "Ortodoncia",              desc: "Convencional, invisible y autoligado. Alineamos tu sonrisa de forma progresiva.",           price: null,             tag: "Más solicitado", color: "from-blue-500 to-blue-700",   light: "bg-blue-50 text-blue-600"    },
+  { Icon: Sparkles,      title: "Blanqueamiento & Diseño", desc: "Blanqueamiento profesional y diseño personalizado. Resultados visibles desde la 1ª sesión.", price: null,             tag: null,             color: "from-sky-400 to-blue-600",    light: "bg-sky-50 text-sky-600"      },
+  { Icon: Anchor,        title: "Implantes Dentales",      desc: "Reemplaza dientes perdidos con implantes de titanio para una mordida natural de por vida.",  price: null,             tag: null,             color: "from-indigo-500 to-blue-700", light: "bg-indigo-50 text-indigo-600" },
+  { Icon: ClipboardList, title: "Consulta Inicial",        desc: "Evaluación completa de tu salud oral con diagnóstico y plan de tratamiento personalizado.",  price: "$80.000 COP",    tag: "Precio fijo",    color: "from-cyan-500 to-blue-600",   light: "bg-cyan-50 text-cyan-700"    },
+  { Icon: Gem,           title: "Estética Dental",         desc: "Carillas de porcelana, coronas y remodelado. El look dental que siempre soñaste.",           price: null,             tag: "Nuevo",          color: "from-violet-500 to-blue-700", light: "bg-violet-50 text-violet-600" },
+  { Icon: Heart,         title: "Periodoncia",             desc: "Tratamiento de encías, injertos gingivales y regeneración ósea para una base dental sana.",  price: null,             tag: null,             color: "from-rose-400 to-pink-600",   light: "bg-rose-50 text-rose-600"    },
+  { Icon: Microscope,    title: "Endodoncia",              desc: "Tratamientos de conductos sin dolor para salvar tu diente y eliminar la infección.",          price: null,             tag: null,             color: "from-teal-500 to-blue-600",   light: "bg-teal-50 text-teal-600"    },
+  { Icon: Scissors,      title: "Cirugía Oral",            desc: "Extracciones, muelas del juicio y procedimientos quirúrgicos con máxima comodidad.",         price: null,             tag: null,             color: "from-blue-600 to-blue-800",   light: "bg-blue-50 text-blue-700"    },
+  { Icon: Moon,          title: "Férula para Bruxismo",    desc: "Protector dental personalizado para evitar el desgaste por rechinamiento nocturno.",         price: null,             tag: null,             color: "from-amber-400 to-orange-500",light: "bg-amber-50 text-amber-600"  },
 ];
 
 export function Services() {
@@ -80,9 +89,9 @@ export function Services() {
               <motion.div
                 whileHover={{ scale: 1.15, rotate: 5 }}
                 transition={{ type: "spring", stiffness: 300, damping: 15 }}
-                className={`w-14 h-14 rounded-2xl ${s.light} flex items-center justify-center text-2xl mb-5 border border-current/10`}
+                className={`w-14 h-14 rounded-2xl ${s.light} flex items-center justify-center mb-5 border border-current/10`}
               >
-                {s.icon}
+                <s.Icon size={24} />
               </motion.div>
 
               <h3 className="text-base font-bold text-slate-900 mb-2 group-hover:text-blue-700 transition-colors duration-200 leading-snug">
@@ -99,9 +108,9 @@ export function Services() {
               <motion.div
                 initial={{ opacity: 0, y: 6 }}
                 whileHover={{ opacity: 1, y: 0 }}
-                className="mt-5 flex items-center gap-1 text-blue-600 text-xs font-bold"
+                className="mt-5 flex items-center gap-1.5 text-blue-600 text-xs font-bold"
               >
-                Consultar →
+                Consultar <ArrowRight size={13} />
               </motion.div>
             </motion.div>
           ))}
