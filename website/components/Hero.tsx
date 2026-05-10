@@ -10,6 +10,10 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion";
+import {
+  Calendar, MessageCircle, ArrowRight, ChevronDown,
+  BadgeCheck, Star, Smile, GraduationCap,
+} from "lucide-react";
 
 /* ── Framer variants ── */
 const fadeUp = {
@@ -125,7 +129,7 @@ export function Hero() {
               onClick={() => go("#contacto")}
               className="inline-flex items-center justify-center gap-2 bg-blue-600 text-white font-bold px-8 py-4 rounded-full"
             >
-              Agendar cita <span>→</span>
+              <Calendar size={16} /> Agendar cita <ArrowRight size={15} />
             </motion.button>
             <motion.a
               whileHover={{ scale: 1.04 }}
@@ -134,7 +138,7 @@ export function Hero() {
               target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 border-2 border-blue-200 text-blue-700 font-bold px-8 py-4 rounded-full hover:border-blue-400 hover:bg-blue-50 transition-colors duration-200"
             >
-              <span className="text-lg">💬</span> WhatsApp
+              <MessageCircle size={17} /> WhatsApp
             </motion.a>
           </motion.div>
 
@@ -184,7 +188,9 @@ export function Hero() {
               transition={{ delay: 1.1, duration: 0.6, ease: "backOut" }}
               className="absolute -bottom-5 -left-5 glass-white rounded-2xl shadow-lg shadow-blue-100 px-4 py-3 flex items-center gap-3"
             >
-              <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-xl">🦷</div>
+              <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white">
+                <BadgeCheck size={20} />
+              </div>
               <div>
                 <p className="text-[10px] text-slate-400 uppercase tracking-wide">Matrícula</p>
                 <p className="text-sm font-black text-slate-800">1033652489</p>
@@ -199,9 +205,9 @@ export function Hero() {
               className="absolute -top-4 -right-4 bg-blue-600 text-white rounded-2xl shadow-lg px-4 py-3"
             >
               <p className="text-[10px] text-blue-200 uppercase tracking-wide">Reseñas</p>
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-1.5">
                 <span className="text-xl font-black">5.0</span>
-                <span className="text-yellow-300">★</span>
+                <Star size={14} className="text-yellow-300 fill-yellow-300" />
               </div>
             </motion.div>
 
@@ -231,8 +237,7 @@ export function Hero() {
           transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
           className="flex flex-col items-center gap-1.5"
         >
-          <span className="text-[9px] text-slate-300 tracking-[0.3em] uppercase">Scroll</span>
-          <div className="w-px h-8 bg-gradient-to-b from-blue-200 to-transparent" />
+          <ChevronDown size={16} className="text-slate-300" />
         </motion.div>
       </motion.div>
     </section>
