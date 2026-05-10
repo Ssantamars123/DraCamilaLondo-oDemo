@@ -6,7 +6,7 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  MapPin, Phone, Instagram, Clock, CreditCard,
+  MapPin, Phone, AtSign, Clock, CreditCard,
   MessageCircle, ArrowRight, Calendar, CheckCircle,
 } from "lucide-react";
 
@@ -17,7 +17,7 @@ const WA = "https://api.whatsapp.com/send?phone=573102481468&text=Hola,%20quiero
 const contactInfo = [
   { Icon: MapPin,      label: "Dirección", value: "Av. 80 #28-90, Belén La Palma, Medellín" },
   { Icon: Phone,       label: "Teléfono",  value: "310 2481468" },
-  { Icon: Instagram,   label: "Instagram", value: "@dracamilalondono" },
+  { Icon: AtSign,      label: "Instagram", value: "@dracamilalondono" },
   { Icon: Clock,       label: "Horario",   value: "Lun–Vie 8am–6pm · Sáb 8am–1pm" },
   { Icon: CreditCard,  label: "Pagos",     value: "Efectivo, tarjetas, transferencias" },
 ];

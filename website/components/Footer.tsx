@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { MapPin, Phone, Globe, Clock, Instagram, MessageCircle, Building2 } from "lucide-react";
+import { MapPin, Phone, Globe, Clock, AtSign, MessageCircle, Building2 } from "lucide-react";
 
 const WA = "https://api.whatsapp.com/send?phone=573102481468&text=Hola,%20quiero%20agendar%20una%20cita%20con%20la%20Dra.%20Camila";
 
@@ -15,7 +15,7 @@ const links = [
 ];
 
 const socials = [
-  { Icon: Instagram,    label: "Instagram",  href: "https://www.instagram.com/dracamilalondono/",                                   hover: "hover:border-pink-400/50 hover:text-pink-400" },
+  { Icon: AtSign,       label: "Instagram",  href: "https://www.instagram.com/dracamilalondono/",                                   hover: "hover:border-pink-400/50 hover:text-pink-400" },
   { Icon: MessageCircle,label: "WhatsApp",   href: WA,                                                                               hover: "hover:border-green-400/50 hover:text-green-400" },
   { Icon: Building2,    label: "Doctoralia", href: "https://www.doctoralia.co/camila-londono-galeano/odontologo/medellin",          hover: "hover:border-blue-400/50 hover:text-blue-400" },
 ];
