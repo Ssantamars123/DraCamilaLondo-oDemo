@@ -1,18 +1,13 @@
 "use client";
 
 import { useRef } from "react";
-import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
 const items = [
-  "🦷 Ortodoncia",
-  "✨ Blanqueamiento",
-  "🔩 Implantes",
-  "💎 Estética Dental",
-  "🩺 Odontología General",
-  "🏥 Cirugía Oral",
-  "😊 Sonrisas perfectas",
-  "❤️ Cuidado personalizado",
+  "🦷 Ortodoncia", "✨ Blanqueamiento", "🔩 Implantes",
+  "💎 Estética Dental", "🩺 Odontología General", "🏥 Cirugía Oral",
+  "😊 Diseño de Sonrisa", "❤️ Periodoncia", "🔬 Endodoncia",
 ];
 
 export function Marquee() {
@@ -20,33 +15,20 @@ export function Marquee() {
 
   useGSAP(() => {
     if (!trackRef.current) return;
-    gsap.to(trackRef.current, {
-      xPercent: -50,
-      duration: 22,
-      ease: "none",
-      repeat: -1,
-    });
+    gsap.to(trackRef.current, { xPercent: -50, duration: 28, ease: "none", repeat: -1 });
   });
 
-  const allItems = [...items, ...items];
+  const all = [...items, ...items];
 
   return (
-    <div
-      className="py-4 overflow-hidden relative"
-      style={{ background: "linear-gradient(90deg, #060C1A 0%, #0D1B35 50%, #060C1A 100%)", borderTop: "1px solid rgba(43,126,255,0.15)", borderBottom: "1px solid rgba(43,126,255,0.15)" }}
-    >
-      {/* Fade edges */}
-      <div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
-        style={{ background: "linear-gradient(90deg, #060C1A, transparent)" }} />
-      <div className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
-        style={{ background: "linear-gradient(-90deg, #060C1A, transparent)" }} />
-
-      <div className="flex" ref={trackRef} style={{ width: "max-content" }}>
-        {allItems.map((item, i) => (
-          <span
-            key={i}
-            className="text-blue-300/70 font-semibold text-sm tracking-widest whitespace-nowrap px-10 uppercase"
-          >
+    <div className="py-3.5 overflow-hidden bg-blue-600 relative">
+      <div className="absolute left-0 inset-y-0 w-16 z-10 pointer-events-none"
+        style={{ background: "linear-gradient(90deg, #2563EB, transparent)" }} />
+      <div className="absolute right-0 inset-y-0 w-16 z-10 pointer-events-none"
+        style={{ background: "linear-gradient(-90deg, #2563EB, transparent)" }} />
+      <div ref={trackRef} className="flex" style={{ width: "max-content" }}>
+        {all.map((item, i) => (
+          <span key={i} className="text-white/85 text-xs font-bold tracking-[0.15em] uppercase whitespace-nowrap px-8">
             {item}
           </span>
         ))}
