@@ -5,17 +5,21 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { motion, AnimatePresence } from "framer-motion";
+import {
+  MapPin, Phone, Instagram, Clock, CreditCard,
+  MessageCircle, ArrowRight, Calendar, CheckCircle,
+} from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const WA = "https://api.whatsapp.com/send?phone=573102481468&text=Hola,%20quiero%20agendar%20una%20cita%20con%20la%20Dra.%20Camila";
 
 const contactInfo = [
-  { icon: "📍", label: "Dirección",   value: "Av. 80 #28-90, Belén La Palma, Medellín" },
-  { icon: "📞", label: "Teléfono",    value: "310 2481468" },
-  { icon: "📸", label: "Instagram",   value: "@dracamilalondono" },
-  { icon: "🕐", label: "Horario",     value: "Lun–Vie 8am–6pm · Sáb 8am–1pm" },
-  { icon: "💳", label: "Pagos",       value: "Efectivo, tarjetas, transferencias" },
+  { Icon: MapPin,      label: "Dirección", value: "Av. 80 #28-90, Belén La Palma, Medellín" },
+  { Icon: Phone,       label: "Teléfono",  value: "310 2481468" },
+  { Icon: Instagram,   label: "Instagram", value: "@dracamilalondono" },
+  { Icon: Clock,       label: "Horario",   value: "Lun–Vie 8am–6pm · Sáb 8am–1pm" },
+  { Icon: CreditCard,  label: "Pagos",     value: "Efectivo, tarjetas, transferencias" },
 ];
 
 export function Contact() {
@@ -83,7 +87,7 @@ export function Contact() {
                 whileHover={{ x: 4 }}
                 className="flex items-start gap-3 bg-blue-50/60 border border-blue-100 rounded-2xl px-4 py-3 hover:border-blue-300 hover:bg-blue-50 transition-colors duration-150"
               >
-                <span className="text-xl">{item.icon}</span>
+                <item.Icon size={17} className="text-blue-500 flex-shrink-0 mt-0.5" />
                 <div>
                   <p className="text-[10px] text-blue-500 font-bold uppercase tracking-widest">{item.label}</p>
                   <p className="text-slate-700 text-sm font-medium mt-0.5">{item.value}</p>
@@ -98,9 +102,11 @@ export function Contact() {
             whileTap={{ scale: 0.97 }}
             className="inline-flex items-center gap-3 bg-green-500 text-white font-bold px-8 py-4 rounded-full w-fit"
           >
-            <span className="text-xl">💬</span>
+            <MessageCircle size={18} />
             Escribir por WhatsApp
-            <motion.span animate={{ x: [0, 5, 0] }} transition={{ duration: 1.3, repeat: Infinity, ease: "easeInOut" }}>→</motion.span>
+            <motion.span animate={{ x: [0, 5, 0] }} transition={{ duration: 1.3, repeat: Infinity, ease: "easeInOut" }}>
+              <ArrowRight size={16} />
+            </motion.span>
           </motion.a>
         </div>
 
@@ -189,7 +195,7 @@ export function Contact() {
                       whileTap={{ scale: 0.97 }}
                       className="w-full bg-blue-600 text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 mt-1"
                     >
-                      Solicitar cita <span>→</span>
+                      <Calendar size={16} /> Solicitar cita <ArrowRight size={15} />
                     </motion.button>
                     <p className="text-center text-xs text-slate-400">
                       O escríbenos por{" "}
@@ -209,9 +215,9 @@ export function Contact() {
                   <motion.div
                     initial={{ scale: 0 }} animate={{ scale: 1 }}
                     transition={{ type: "spring", stiffness: 300, damping: 18, delay: 0.1 }}
-                    className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center text-3xl"
+                    className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center text-green-600"
                   >
-                    ✅
+                    <CheckCircle size={32} />
                   </motion.div>
                   <h3 className="text-xl font-black text-slate-900">¡Solicitud enviada!</h3>
                   <p className="text-slate-500 text-sm max-w-xs leading-relaxed">
