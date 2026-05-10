@@ -5,14 +5,15 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { motion } from "framer-motion";
+import { Award, Users, Star, HeartHandshake } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const stats = [
-  { value: 10,   suffix: "+",  label: "Años de experiencia",   icon: "🏆", color: "from-blue-500 to-blue-700" },
-  { value: 7000, suffix: "+",  label: "Pacientes atendidos",   icon: "😊", color: "from-sky-400  to-blue-600" },
-  { value: 56,   suffix: "",   label: "Reseñas verificadas",   icon: "⭐", color: "from-indigo-500 to-blue-700" },
-  { value: 5,    suffix: ".0★",label: "Calificación promedio", icon: "💎", color: "from-blue-400 to-cyan-500" },
+  { value: 10,   suffix: "+",   label: "Años de experiencia",   Icon: Award,          color: "from-blue-500 to-blue-700" },
+  { value: 7000, suffix: "+",   label: "Pacientes atendidos",   Icon: Users,          color: "from-sky-400  to-blue-600" },
+  { value: 56,   suffix: "",    label: "Reseñas verificadas",   Icon: Star,           color: "from-indigo-500 to-blue-700" },
+  { value: 5,    suffix: ".0★", label: "Calificación promedio", Icon: HeartHandshake, color: "from-blue-400 to-cyan-500" },
 ];
 
 export function Stats() {
@@ -49,9 +50,8 @@ export function Stats() {
               whileHover={{ y: -4, boxShadow: "0 12px 32px rgba(37,99,235,0.15)" }}
               className="flex flex-col items-center gap-3 text-center p-6 bg-white rounded-3xl shadow-sm shadow-blue-100 border border-blue-50"
             >
-              {/* Icon with gradient bg */}
-              <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${s.color} flex items-center justify-center text-2xl shadow-md`}>
-                {s.icon}
+              <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${s.color} flex items-center justify-center shadow-md text-white`}>
+                <s.Icon size={22} />
               </div>
 
               <div className="flex items-end gap-0.5 leading-none">
