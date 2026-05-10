@@ -7,7 +7,7 @@ import { useGSAP } from "@gsap/react";
 import { motion } from "framer-motion";
 import {
   AlignCenter, Sparkles, Anchor, ClipboardList,
-  Gem, Heart, Microscope, Scissors, Moon, ArrowRight,
+  Gem, Heart, Microscope, Scissors, Moon, ArrowUpRight,
   type LucideIcon,
 } from "lucide-react";
 
@@ -15,105 +15,136 @@ gsap.registerPlugin(ScrollTrigger);
 
 const services: {
   Icon: LucideIcon; title: string; desc: string;
-  price: string | null; tag: string | null;
-  color: string; light: string;
+  price: string | null; tag: string | null; num: string;
 }[] = [
-  { Icon: AlignCenter,   title: "Ortodoncia",              desc: "Convencional, invisible y autoligado. Alineamos tu sonrisa de forma progresiva.",           price: null,             tag: "Más solicitado", color: "from-blue-500 to-blue-700",   light: "bg-blue-50 text-blue-600"    },
-  { Icon: Sparkles,      title: "Blanqueamiento & Diseño", desc: "Blanqueamiento profesional y diseño personalizado. Resultados visibles desde la 1ª sesión.", price: null,             tag: null,             color: "from-sky-400 to-blue-600",    light: "bg-sky-50 text-sky-600"      },
-  { Icon: Anchor,        title: "Implantes Dentales",      desc: "Reemplaza dientes perdidos con implantes de titanio para una mordida natural de por vida.",  price: null,             tag: null,             color: "from-indigo-500 to-blue-700", light: "bg-indigo-50 text-indigo-600" },
-  { Icon: ClipboardList, title: "Consulta Inicial",        desc: "Evaluación completa de tu salud oral con diagnóstico y plan de tratamiento personalizado.",  price: "$80.000 COP",    tag: "Precio fijo",    color: "from-cyan-500 to-blue-600",   light: "bg-cyan-50 text-cyan-700"    },
-  { Icon: Gem,           title: "Estética Dental",         desc: "Carillas de porcelana, coronas y remodelado. El look dental que siempre soñaste.",           price: null,             tag: "Nuevo",          color: "from-violet-500 to-blue-700", light: "bg-violet-50 text-violet-600" },
-  { Icon: Heart,         title: "Periodoncia",             desc: "Tratamiento de encías, injertos gingivales y regeneración ósea para una base dental sana.",  price: null,             tag: null,             color: "from-rose-400 to-pink-600",   light: "bg-rose-50 text-rose-600"    },
-  { Icon: Microscope,    title: "Endodoncia",              desc: "Tratamientos de conductos sin dolor para salvar tu diente y eliminar la infección.",          price: null,             tag: null,             color: "from-teal-500 to-blue-600",   light: "bg-teal-50 text-teal-600"    },
-  { Icon: Scissors,      title: "Cirugía Oral",            desc: "Extracciones, muelas del juicio y procedimientos quirúrgicos con máxima comodidad.",         price: null,             tag: null,             color: "from-blue-600 to-blue-800",   light: "bg-blue-50 text-blue-700"    },
-  { Icon: Moon,          title: "Férula para Bruxismo",    desc: "Protector dental personalizado para evitar el desgaste por rechinamiento nocturno.",         price: null,             tag: null,             color: "from-amber-400 to-orange-500",light: "bg-amber-50 text-amber-600"  },
+  { num: "01", Icon: AlignCenter,   title: "Ortodoncia",              desc: "Convencional, invisible y autoligado. Alineamos tu sonrisa de forma progresiva y precisa.",          price: null,          tag: "Más solicitado" },
+  { num: "02", Icon: Sparkles,      title: "Blanqueamiento & Diseño", desc: "Blanqueamiento profesional y diseño personalizado. Resultados visibles desde la primera sesión.",     price: null,          tag: null             },
+  { num: "03", Icon: Anchor,        title: "Implantes Dentales",      desc: "Reemplaza dientes perdidos con implantes de titanio. Mordida natural, solución de por vida.",         price: null,          tag: null             },
+  { num: "04", Icon: ClipboardList, title: "Consulta Inicial",        desc: "Evaluación completa de tu salud oral con diagnóstico y plan de tratamiento totalmente personalizado.", price: "$80.000 COP",  tag: "Precio fijo"    },
+  { num: "05", Icon: Gem,           title: "Estética Dental",         desc: "Carillas de porcelana, coronas y remodelado. El look dental que siempre soñaste, hecho realidad.",   price: null,          tag: null             },
+  { num: "06", Icon: Heart,         title: "Periodoncia",             desc: "Tratamiento de encías, injertos gingivales y regeneración ósea para una base dental sana.",          price: null,          tag: null             },
+  { num: "07", Icon: Microscope,    title: "Endodoncia",              desc: "Tratamientos de conductos sin dolor para salvar tu diente y eliminar la infección definitivamente.",  price: null,          tag: null             },
+  { num: "08", Icon: Scissors,      title: "Cirugía Oral",            desc: "Extracciones, muelas del juicio y procedimientos quirúrgicos con máxima comodidad y seguridad.",     price: null,          tag: null             },
+  { num: "09", Icon: Moon,          title: "Férula para Bruxismo",    desc: "Protector dental personalizado para evitar el desgaste por rechinamiento nocturno.",                 price: null,          tag: null             },
 ];
 
 export function Services() {
   const ref = useRef<HTMLElement>(null);
 
   useGSAP(() => {
-    // Header reveal
-    gsap.fromTo(".svc-header",
-      { y: 40, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, ease: "power3.out",
-        scrollTrigger: { trigger: ref.current, start: "top 82%" } }
+    gsap.fromTo(".svc-title-line",
+      { y: "110%", opacity: 0 },
+      {
+        y: "0%", opacity: 1, duration: 1, stagger: 0.13, ease: "power4.out",
+        scrollTrigger: { trigger: ".svc-header-wrap", start: "top 80%" },
+      }
+    );
+    gsap.fromTo(".svc-row",
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1, y: 0, duration: 0.5, stagger: 0.07, ease: "power3.out",
+        scrollTrigger: { trigger: ".svc-list", start: "top 82%" },
+      }
     );
   }, { scope: ref });
 
   return (
-    <section id="servicios" ref={ref} className="py-28 bg-blue-50/40 relative overflow-hidden">
-      <div className="absolute inset-0 pointer-events-none opacity-40"
-        style={{ backgroundImage: "radial-gradient(#DBEAFE 1.5px, transparent 1.5px)", backgroundSize: "38px 38px" }} />
+    <section id="servicios" ref={ref} className="py-28 bg-white relative overflow-hidden">
+      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-blue-200 to-transparent" />
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="svc-header text-center mb-14">
-          <div className="inline-flex items-center gap-2 bg-white border border-blue-200 rounded-full px-4 py-1.5 mb-4 shadow-sm">
-            <span className="text-blue-600 text-xs font-bold tracking-widest uppercase">Servicios</span>
+      <div className="max-w-7xl mx-auto px-6">
+
+        {/* Header */}
+        <div className="svc-header-wrap grid md:grid-cols-2 gap-10 items-end mb-20">
+          <div>
+            <div className="inline-flex items-center gap-2 bg-blue-50 border border-blue-200 rounded-full px-4 py-1.5 mb-6">
+              <span className="text-blue-600 text-xs font-bold tracking-widest uppercase">Tratamientos</span>
+            </div>
+            <h2 className="font-black leading-[1.0] tracking-tight text-slate-900"
+              style={{ fontSize: "clamp(2.5rem, 5.5vw, 4.5rem)" }}>
+              <span className="block overflow-hidden">
+                <span className="svc-title-line block">Todo lo que</span>
+              </span>
+              <span className="block overflow-hidden">
+                <span className="svc-title-line block">tu sonrisa</span>
+              </span>
+              <span className="block overflow-hidden">
+                <span className="svc-title-line block text-gradient">necesita.</span>
+              </span>
+            </h2>
           </div>
-          <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-4">
-            Todo lo que tu boca <span className="text-gradient">necesita</span>
-          </h2>
-          <p className="text-slate-500 text-lg max-w-xl mx-auto">
-            Desde consultas preventivas hasta cirugía oral. Un solo lugar, atención completa.
+          <p className="text-slate-500 text-lg leading-relaxed md:mb-2 max-w-sm">
+            Un solo lugar con atención integral. Desde la primera consulta hasta el resultado final,
+            estás en manos expertas.
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {/* Service list */}
+        <div className="svc-list border-t border-slate-100">
           {services.map((s, i) => (
             <motion.div
               key={s.title}
-              initial={{ opacity: 0, y: 50, scale: 0.96 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.55, delay: (i % 3) * 0.1, ease: [0.22, 1, 0.36, 1] }}
-              whileHover={{ y: -6, boxShadow: "0 20px 48px rgba(37,99,235,0.12)" }}
-              className="group relative bg-white rounded-3xl border border-blue-50 p-7 overflow-hidden transition-colors duration-300 hover:border-blue-200"
+              className="svc-row group flex items-center gap-6 md:gap-10 py-6 border-b border-slate-100 cursor-default"
+              whileHover={{ x: 6 }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
             >
-              {/* Gradient sweep */}
-              <motion.div
-                className={`absolute inset-0 bg-gradient-to-br ${s.color} rounded-3xl`}
-                initial={{ opacity: 0 }}
-                whileHover={{ opacity: 0.05 }}
-                transition={{ duration: 0.3 }}
-              />
-
-              {/* Tag */}
-              {s.tag && (
-                <span className="absolute top-5 right-5 bg-blue-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-full">
-                  {s.tag}
-                </span>
-              )}
+              {/* Number */}
+              <span className="text-[11px] font-bold text-slate-300 tracking-widest w-8 flex-shrink-0 group-hover:text-blue-400 transition-colors duration-300">
+                {s.num}
+              </span>
 
               {/* Icon */}
-              <motion.div
-                whileHover={{ scale: 1.15, rotate: 5 }}
-                transition={{ type: "spring", stiffness: 300, damping: 15 }}
-                className={`w-14 h-14 rounded-2xl ${s.light} flex items-center justify-center mb-5 border border-current/10`}
-              >
-                <s.Icon size={24} />
-              </motion.div>
+              <div className="w-11 h-11 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-600 group-hover:border-blue-600 transition-all duration-300">
+                <s.Icon size={19} className="text-blue-500 group-hover:text-white transition-colors duration-300" />
+              </div>
 
-              <h3 className="text-base font-bold text-slate-900 mb-2 group-hover:text-blue-700 transition-colors duration-200 leading-snug">
-                {s.title}
-              </h3>
-              <p className="text-slate-500 text-sm leading-relaxed">{s.desc}</p>
-
-              {s.price && (
-                <div className="mt-3 inline-flex items-center gap-1.5 bg-blue-50 border border-blue-100 rounded-full px-3 py-1">
-                  <span className="text-blue-700 font-black text-sm">{s.price}</span>
+              {/* Title */}
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-3 flex-wrap">
+                  <h3 className="text-base md:text-lg font-bold text-slate-900 group-hover:text-blue-700 transition-colors duration-200">
+                    {s.title}
+                  </h3>
+                  {s.tag && (
+                    <span className="bg-blue-600 text-white text-[9px] font-bold px-2.5 py-0.5 rounded-full tracking-widest uppercase">
+                      {s.tag}
+                    </span>
+                  )}
+                  {s.price && (
+                    <span className="bg-slate-100 text-slate-600 text-[10px] font-bold px-2.5 py-0.5 rounded-full">
+                      {s.price}
+                    </span>
+                  )}
                 </div>
-              )}
+                <p className="text-slate-400 text-sm mt-0.5 leading-snug hidden md:block">{s.desc}</p>
+              </div>
 
+              {/* Arrow */}
               <motion.div
-                initial={{ opacity: 0, y: 6 }}
-                whileHover={{ opacity: 1, y: 0 }}
-                className="mt-5 flex items-center gap-1.5 text-blue-600 text-xs font-bold"
+                className="w-9 h-9 rounded-full border border-slate-200 flex items-center justify-center flex-shrink-0 text-slate-300 group-hover:bg-blue-600 group-hover:border-blue-600 group-hover:text-white transition-all duration-300"
+                whileHover={{ rotate: 45 }}
+                transition={{ type: "spring", stiffness: 400, damping: 20 }}
               >
-                Consultar <ArrowRight size={13} />
+                <ArrowUpRight size={16} />
               </motion.div>
             </motion.div>
           ))}
+        </div>
+
+        {/* CTA bottom */}
+        <div className="mt-14 flex flex-col sm:flex-row items-center justify-between gap-6 bg-blue-50 border border-blue-100 rounded-3xl px-8 py-7">
+          <div>
+            <p className="font-black text-slate-900 text-lg">¿No sabes qué tratamiento necesitas?</p>
+            <p className="text-slate-500 text-sm mt-1">Agenda una consulta inicial por $80.000 COP y lo descubrimos juntos.</p>
+          </div>
+          <motion.button
+            onClick={() => document.querySelector("#contacto")?.scrollIntoView({ behavior: "smooth" })}
+            className="inline-flex items-center gap-2 bg-blue-600 text-white font-bold px-8 py-4 rounded-full whitespace-nowrap flex-shrink-0"
+            whileHover={{ scale: 1.04, boxShadow: "0 10px 32px rgba(37,99,235,0.35)" }}
+            whileTap={{ scale: 0.97 }}
+          >
+            Agendar consulta
+            <ArrowUpRight size={16} />
+          </motion.button>
         </div>
       </div>
     </section>
