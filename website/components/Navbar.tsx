@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Calendar, ArrowRight } from "lucide-react";
 
 const links = [
   { label: "Inicio",       href: "#inicio"      },
@@ -80,7 +81,9 @@ export function Navbar() {
           onClick={() => go("#contacto")}
           className="hidden md:inline-flex items-center gap-2 bg-blue-600 text-white text-sm font-bold px-5 py-2.5 rounded-full"
         >
-          Agendar cita <span className="opacity-70 text-xs">→</span>
+          <Calendar size={14} />
+          Agendar cita
+          <ArrowRight size={13} className="opacity-70" />
         </motion.button>
 
         {/* Hamburger */}
