@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { MapPin, Phone, Globe, Clock, Instagram, MessageCircle, Building2 } from "lucide-react";
 
 const WA = "https://api.whatsapp.com/send?phone=573102481468&text=Hola,%20quiero%20agendar%20una%20cita%20con%20la%20Dra.%20Camila";
 
@@ -14,9 +15,9 @@ const links = [
 ];
 
 const socials = [
-  { icon: "📸", label: "Instagram",  href: "https://www.instagram.com/dracamilalondono/",                                   hover: "hover:border-pink-400/50 hover:text-pink-400" },
-  { icon: "💬", label: "WhatsApp",   href: WA,                                                                               hover: "hover:border-green-400/50 hover:text-green-400" },
-  { icon: "🏥", label: "Doctoralia", href: "https://www.doctoralia.co/camila-londono-galeano/odontologo/medellin",          hover: "hover:border-blue-400/50 hover:text-blue-400" },
+  { Icon: Instagram,    label: "Instagram",  href: "https://www.instagram.com/dracamilalondono/",                                   hover: "hover:border-pink-400/50 hover:text-pink-400" },
+  { Icon: MessageCircle,label: "WhatsApp",   href: WA,                                                                               hover: "hover:border-green-400/50 hover:text-green-400" },
+  { Icon: Building2,    label: "Doctoralia", href: "https://www.doctoralia.co/camila-londono-galeano/odontologo/medellin",          hover: "hover:border-blue-400/50 hover:text-blue-400" },
 ];
 
 export function Footer() {
@@ -53,9 +54,9 @@ export function Footer() {
                   aria-label={s.label}
                   whileHover={{ scale: 1.15, y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  className={`w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-sm transition-all duration-200 ${s.hover}`}
+                  className={`w-9 h-9 rounded-full border border-white/10 flex items-center justify-center transition-all duration-200 ${s.hover}`}
                 >
-                  {s.icon}
+                  <s.Icon size={16} />
                 </motion.a>
               ))}
             </div>
@@ -89,10 +90,10 @@ export function Footer() {
             <p className="text-[9px] font-bold text-white/30 uppercase tracking-[0.2em] mb-5">Contacto</p>
             <ul className="flex flex-col gap-3">
               {[
-                { icon: "📍", text: "Av. 80 #28-90, Belén La Palma" },
-                { icon: "📞", text: "310 2481468" },
-                { icon: "🌐", text: "odontologiacamilalondono.com" },
-                { icon: "🕐", text: "Lun–Vie 8am–6pm · Sáb 8am–1pm" },
+                { Icon: MapPin, text: "Av. 80 #28-90, Belén La Palma" },
+                { Icon: Phone,  text: "310 2481468" },
+                { Icon: Globe,  text: "odontologiacamilalondono.com" },
+                { Icon: Clock,  text: "Lun–Vie 8am–6pm · Sáb 8am–1pm" },
               ].map((item, i) => (
                 <motion.li
                   key={item.text}
@@ -102,7 +103,7 @@ export function Footer() {
                   transition={{ delay: i * 0.07 }}
                   className="flex items-start gap-2"
                 >
-                  <span className="text-sm">{item.icon}</span>
+                  <item.Icon size={13} className="text-white/30 mt-0.5 flex-shrink-0" />
                   <span className="text-white/40 text-xs leading-snug">{item.text}</span>
                 </motion.li>
               ))}
