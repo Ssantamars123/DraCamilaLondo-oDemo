@@ -1,9 +1,12 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger);
 import { motion } from "framer-motion";
 import { Calendar, MessageCircle, ArrowRight, Star, BadgeCheck } from "lucide-react";
 

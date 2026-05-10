@@ -1,23 +1,22 @@
 @import "tailwindcss";
 
 :root {
+  --blue-700: #1d4ed8;
   --blue-600: #2563EB;
   --blue-500: #3B82F6;
   --blue-400: #60A5FA;
   --blue-100: #DBEAFE;
   --blue-50:  #EFF6FF;
-  --sky-400:  #38BDF8;
-  --white:    #FFFFFF;
   --slate-900: #0F172A;
+  --slate-800: #1E293B;
   --slate-600: #475569;
   --slate-400: #94A3B8;
+  --white:    #FFFFFF;
 }
 
 html { scroll-behavior: auto; }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   background: #ffffff;
@@ -29,34 +28,37 @@ body {
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 
 /* Scrollbar */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: #EFF6FF; }
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: #f8fafc; }
 ::-webkit-scrollbar-thumb { background: #2563EB; border-radius: 2px; }
 
-/* Gradient text */
+/* Gradient text — blue editorial */
 .text-gradient {
-  background: linear-gradient(135deg, #1d4ed8 0%, #3B82F6 50%, #60A5FA 100%);
+  background: linear-gradient(120deg, #1d4ed8 0%, #3B82F6 55%, #60A5FA 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Glass */
+/* Glass variants */
 .glass-white {
-  background: rgba(255,255,255,0.75);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(255,255,255,0.9);
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,0.95);
 }
 .glass-blue {
-  background: rgba(219,234,254,0.5);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(96,165,250,0.2);
+  background: rgba(219,234,254,0.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(96,165,250,0.25);
 }
 
-/* Overflow clip for text animations */
+/* Text clip for GSAP clip-reveal */
 .clip { overflow: hidden; }
 
-/* Magnetic hover */
-.btn-magnetic {
-  transition: transform 0.3s cubic-bezier(0.23,1,0.32,1);
+/* Selection color */
+::selection {
+  background: #DBEAFE;
+  color: #1d4ed8;
 }
