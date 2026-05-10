@@ -1,12 +1,13 @@
-import { Navbar } from "@/components/Navbar";
-import { Hero } from "@/components/Hero";
-import { Marquee } from "@/components/Marquee";
-import { About } from "@/components/About";
-import { Services } from "@/components/Services";
-import { Results } from "@/components/Results";
+import { Navbar }       from "@/components/Navbar";
+import { Hero }         from "@/components/Hero";
+import { Marquee }      from "@/components/Marquee";
+import { Stats }        from "@/components/Stats";
+import { About }        from "@/components/About";
+import { Services }     from "@/components/Services";
+import { Results }      from "@/components/Results";
 import { Testimonials } from "@/components/Testimonials";
-import { Contact } from "@/components/Contact";
-import { Footer } from "@/components/Footer";
+import { Contact }      from "@/components/Contact";
+import { Footer }       from "@/components/Footer";
 import { CustomCursor } from "@/components/CustomCursor";
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
       <main>
         <Hero />
         <Marquee />
+        <Stats />
         <About />
         <Services />
         <Results />
