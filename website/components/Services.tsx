@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -11,129 +11,165 @@ const services = [
   {
     icon: "🦷",
     title: "Ortodoncia",
-    desc: "Brackets metálicos, cerámicos y alineadores invisibles para corregir tu mordida y alinear tu sonrisa.",
-    gradient: "from-blue-600 to-blue-800",
-    accent: "bg-blue-50 border-blue-100",
+    desc: "Convencional, invisible y autoligado. Corregimos tu mordida y alineamos tu sonrisa progresivamente.",
+    price: null,
     tag: "Más solicitado",
+    color: "blue",
   },
   {
     icon: "✨",
-    title: "Blanqueamiento",
-    desc: "Tratamiento profesional que elimina manchas y devuelve el brillo natural de tus dientes en una sola sesión.",
-    gradient: "from-sky-500 to-blue-600",
-    accent: "bg-sky-50 border-sky-100",
+    title: "Blanqueamiento & Diseño de Sonrisa",
+    desc: "Blanqueamiento profesional y diseño personalizado para una sonrisa natural y radiante.",
+    price: null,
     tag: null,
+    color: "sky",
   },
   {
     icon: "🔩",
-    title: "Implantes",
-    desc: "Reemplaza dientes perdidos con implantes de titanio. Función y estética naturales de por vida.",
-    gradient: "from-blue-700 to-indigo-700",
-    accent: "bg-indigo-50 border-indigo-100",
+    title: "Implantes Dentales",
+    desc: "Reemplaza dientes perdidos con implantes de titanio para una mordida natural de por vida.",
+    price: null,
     tag: null,
+    color: "indigo",
   },
   {
     icon: "🩺",
-    title: "Odontología General",
-    desc: "Consultas de rutina, limpiezas, calzas y cuidado preventivo. La base de una boca sana.",
-    gradient: "from-blue-500 to-cyan-600",
-    accent: "bg-cyan-50 border-cyan-100",
-    tag: null,
+    title: "Consulta Inicial",
+    desc: "Evaluación completa de tu salud oral con diagnóstico y plan de tratamiento personalizado.",
+    price: "$80.000 COP",
+    tag: "Precio fijo",
+    color: "cyan",
   },
   {
     icon: "💎",
     title: "Estética Dental",
-    desc: "Carillas de porcelana, remodelado y diseño de sonrisa. El look dental que siempre soñaste.",
-    gradient: "from-violet-600 to-blue-700",
-    accent: "bg-violet-50 border-violet-100",
+    desc: "Carillas de porcelana, coronas, prótesis y remodelado. El look dental que siempre soñaste.",
+    price: null,
     tag: "Nuevo",
+    color: "violet",
+  },
+  {
+    icon: "❤️",
+    title: "Periodoncia",
+    desc: "Tratamiento de encías, injertos gingivales y regeneración ósea para una base dental sana.",
+    price: null,
+    tag: null,
+    color: "rose",
+  },
+  {
+    icon: "🔬",
+    title: "Endodoncia",
+    desc: "Tratamientos de conductos sin dolor para salvar tu diente y eliminar la infección de raíz.",
+    price: null,
+    tag: null,
+    color: "teal",
   },
   {
     icon: "🏥",
     title: "Cirugía Oral",
-    desc: "Extracciones, muelas del juicio y procedimientos quirúrgicos con anestesia local para tu comodidad.",
-    gradient: "from-blue-600 to-teal-600",
-    accent: "bg-teal-50 border-teal-100",
+    desc: "Extracciones, muelas del juicio y procedimientos quirúrgicos con máxima comodidad.",
+    price: null,
     tag: null,
+    color: "blue",
+  },
+  {
+    icon: "😁",
+    title: "Férula para Bruxismo",
+    desc: "Protector dental personalizado para evitar el desgaste por rechinamiento nocturno.",
+    price: null,
+    tag: null,
+    color: "amber",
   },
 ];
 
-export function Services() {
-  const containerRef = useRef<HTMLElement>(null);
+const colorMap: Record<string, { bg: string; icon: string; tag: string }> = {
+  blue:   { bg: "from-blue-500 to-blue-700",     icon: "bg-blue-50 text-blue-600",   tag: "bg-blue-600" },
+  sky:    { bg: "from-sky-400 to-blue-600",       icon: "bg-sky-50 text-sky-600",     tag: "bg-sky-600" },
+  indigo: { bg: "from-indigo-500 to-blue-700",    icon: "bg-indigo-50 text-indigo-600", tag: "bg-indigo-600" },
+  cyan:   { bg: "from-cyan-500 to-blue-600",      icon: "bg-cyan-50 text-cyan-700",   tag: "bg-cyan-600" },
+  violet: { bg: "from-violet-500 to-blue-700",    icon: "bg-violet-50 text-violet-600", tag: "bg-violet-600" },
+  rose:   { bg: "from-rose-400 to-pink-600",      icon: "bg-rose-50 text-rose-600",   tag: "bg-rose-500" },
+  teal:   { bg: "from-teal-500 to-blue-600",      icon: "bg-teal-50 text-teal-600",   tag: "bg-teal-600" },
+  amber:  { bg: "from-amber-400 to-orange-500",   icon: "bg-amber-50 text-amber-600", tag: "bg-amber-500" },
+};
 
-  useGSAP(
-    () => {
-      gsap.fromTo(
-        ".services-header",
-        { y: 40, opacity: 0 },
-        {
-          y: 0, opacity: 1, duration: 0.8, ease: "power3.out",
-          scrollTrigger: { trigger: containerRef.current, start: "top 80%" },
-        }
-      );
-      gsap.fromTo(
-        ".service-card",
-        { y: 60, opacity: 0, scale: 0.97 },
-        {
-          y: 0, opacity: 1, scale: 1, duration: 0.7, stagger: 0.1, ease: "power3.out",
-          scrollTrigger: { trigger: ".services-grid", start: "top 75%" },
-        }
-      );
-    },
-    { scope: containerRef }
-  );
+export function Services() {
+  const ref = useRef<HTMLElement>(null);
+  const [hovered, setHovered] = useState<number | null>(null);
+
+  useGSAP(() => {
+    gsap.fromTo(".svc-header",
+      { y: 40, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8, ease: "power3.out",
+        scrollTrigger: { trigger: ref.current, start: "top 80%" } }
+    );
+    gsap.fromTo(".svc-card",
+      { y: 50, opacity: 0, scale: 0.97 },
+      { y: 0, opacity: 1, scale: 1, duration: 0.65, stagger: 0.07, ease: "power3.out",
+        scrollTrigger: { trigger: ".svc-grid", start: "top 75%" } }
+    );
+  }, { scope: ref });
 
   return (
-    <section id="servicios" ref={containerRef} className="py-28 bg-[#F8FAFF] relative overflow-hidden">
-      {/* Decorative blur */}
-      <div className="absolute top-1/2 right-0 w-96 h-96 rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(43,126,255,0.07) 0%, transparent 70%)", filter: "blur(40px)" }} />
+    <section id="servicios" ref={ref} className="py-28 bg-blue-50/40 relative overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none"
+        style={{ backgroundImage: "radial-gradient(#DBEAFE 1.5px, transparent 1.5px)", backgroundSize: "40px 40px", opacity: 0.4 }} />
 
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="services-header text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-blue-50 border border-blue-100 rounded-full px-4 py-1.5 mb-4">
-            <span className="text-blue-700 text-xs font-semibold tracking-widest uppercase">Servicios</span>
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="svc-header text-center mb-14">
+          <div className="inline-flex items-center gap-2 bg-white border border-blue-200 rounded-full px-4 py-1.5 mb-4 shadow-sm">
+            <span className="text-blue-600 text-xs font-bold tracking-widest uppercase">Servicios</span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
-            Todo lo que tu boca{" "}
-            <span className="gradient-text-blue">necesita</span>
+          <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-4">
+            Todo lo que tu boca <span className="text-gradient">necesita</span>
           </h2>
           <p className="text-slate-500 text-lg max-w-xl mx-auto">
-            Desde consultas preventivas hasta tratamientos especializados. Un solo lugar para toda tu salud bucal.
+            Desde consultas preventivas hasta cirugía oral. Un solo lugar, atención completa.
           </p>
         </div>
 
-        <div className="services-grid grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {services.map((s) => (
-            <div
-              key={s.title}
-              className="service-card group relative bg-white rounded-3xl border border-slate-100 p-7 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-50 transition-all duration-400 overflow-hidden"
-            >
-              {/* Hover gradient reveal */}
+        <div className="svc-grid grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {services.map((s, i) => {
+            const c = colorMap[s.color] ?? colorMap.blue;
+            return (
               <div
-                className={`absolute inset-0 bg-gradient-to-br ${s.gradient} opacity-0 group-hover:opacity-[0.04] transition-opacity duration-300 rounded-3xl`}
-              />
+                key={s.title}
+                className="svc-card group relative bg-white rounded-3xl border border-blue-50 p-7 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-100/70 transition-all duration-300 overflow-hidden"
+                onMouseEnter={() => setHovered(i)}
+                onMouseLeave={() => setHovered(null)}
+              >
+                {/* Gradient sweep on hover */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${c.bg} opacity-0 group-hover:opacity-[0.05] transition-opacity duration-300 rounded-3xl pointer-events-none`} />
 
-              {s.tag && (
-                <span className="absolute top-5 right-5 bg-blue-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-full tracking-wide">
-                  {s.tag}
-                </span>
-              )}
+                {/* Tag */}
+                {s.tag && (
+                  <span className={`absolute top-5 right-5 ${c.tag} text-white text-[10px] font-bold px-2.5 py-1 rounded-full`}>
+                    {s.tag}
+                  </span>
+                )}
 
-              <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${s.gradient} flex items-center justify-center text-2xl mb-5 shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:shadow-xl`}>
-                {s.icon}
+                {/* Icon */}
+                <div className={`w-14 h-14 rounded-2xl ${c.icon} flex items-center justify-center text-2xl mb-5 border border-current/10 transition-all duration-300 ${hovered === i ? "scale-110 shadow-lg" : ""}`}>
+                  {s.icon}
+                </div>
+
+                <h3 className="text-base font-bold text-slate-900 mb-2 group-hover:text-blue-700 transition-colors duration-200 leading-snug">
+                  {s.title}
+                </h3>
+                <p className="text-slate-500 text-sm leading-relaxed">{s.desc}</p>
+
+                {s.price && (
+                  <div className="mt-3 inline-flex items-center gap-1.5 bg-blue-50 border border-blue-100 rounded-full px-3 py-1">
+                    <span className="text-blue-700 font-black text-sm">{s.price}</span>
+                  </div>
+                )}
+
+                <div className="mt-5 flex items-center gap-1 text-blue-600 text-xs font-bold opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200">
+                  Consultar <span className="group-hover:translate-x-0.5 transition-transform">→</span>
+                </div>
               </div>
-
-              <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-blue-700 transition-colors duration-200">
-                {s.title}
-              </h3>
-              <p className="text-slate-500 text-sm leading-relaxed">{s.desc}</p>
-
-              <div className="mt-5 flex items-center gap-1.5 text-blue-600 text-sm font-bold translate-y-2 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200">
-                Consultar <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
