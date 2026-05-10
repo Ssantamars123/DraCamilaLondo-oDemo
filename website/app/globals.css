@@ -17,7 +17,6 @@ html { scroll-behavior: auto; }
 
 * {
   box-sizing: border-box;
-  cursor: none;
 }
 
 body {
