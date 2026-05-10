@@ -4,14 +4,15 @@ import { useRef } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { motion } from "framer-motion";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const testimonials = [
   { name: "Valentina García",     role: "Ortodoncia",          text: "La Dra. Camila transformó mi sonrisa completamente. Su paciencia es única. En 18 meses mis dientes quedaron perfectos.", stars: 5, ini: "V", color: "bg-blue-600" },
-  { name: "Andrés Martínez",      role: "Implantes",           text: "El implante es indistinguible del resto. Jamás pensé que volvería a sonreír con confianza. Increíble trabajo.", stars: 5, ini: "A", color: "bg-indigo-600" },
-  { name: "María Fernanda López", role: "Blanqueamiento",      text: "Proceso rápido, sin dolor y los resultados son espectaculares. La mejor inversión que he hecho en mi sonrisa.", stars: 5, ini: "M", color: "bg-sky-600" },
-  { name: "Carlos Restrepo",      role: "Odontología general", text: "Llevo 3 años siendo paciente. El ambiente es agradable y siempre explica cada procedimiento con claridad.", stars: 5, ini: "C", color: "bg-blue-700" },
+  { name: "Andrés Martínez",      role: "Implantes",           text: "El implante es indistinguible. Jamás pensé que volvería a sonreír con confianza. Increíble trabajo.", stars: 5, ini: "A", color: "bg-indigo-600" },
+  { name: "María Fernanda López", role: "Blanqueamiento",      text: "Rápido, sin dolor y resultados espectaculares. La mejor inversión que he hecho en mi sonrisa.", stars: 5, ini: "M", color: "bg-sky-600" },
+  { name: "Carlos Restrepo",      role: "Odontología general", text: "Llevo 3 años siendo paciente. Ambiente agradable y siempre explica cada procedimiento con claridad.", stars: 5, ini: "C", color: "bg-blue-700" },
   { name: "Laura Ospina",         role: "Diseño de sonrisa",   text: "Las carillas cambiaron mi vida. Me siento más segura y sonrío con confianza por primera vez en años.", stars: 5, ini: "L", color: "bg-violet-600" },
   { name: "Santiago Morales",     role: "Alineadores",         text: "Elegí los alineadores por discreción. Seguimiento constante y resultados que superaron mis expectativas.", stars: 5, ini: "S", color: "bg-teal-600" },
 ];
@@ -23,19 +24,14 @@ export function Testimonials() {
     gsap.fromTo(".tes-header",
       { y: 40, opacity: 0 },
       { y: 0, opacity: 1, duration: 0.8, ease: "power3.out",
-        scrollTrigger: { trigger: ref.current, start: "top 80%" } }
-    );
-    gsap.fromTo(".tes-card",
-      { y: 40, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.65, stagger: 0.1, ease: "power3.out",
-        scrollTrigger: { trigger: ".tes-grid", start: "top 75%" } }
+        scrollTrigger: { trigger: ref.current, start: "top 82%" } }
     );
   }, { scope: ref });
 
   return (
     <section id="testimonios" ref={ref} className="py-28 bg-blue-50/50 relative overflow-hidden">
-      <div className="absolute inset-0 pointer-events-none"
-        style={{ backgroundImage: "radial-gradient(#BFDBFE 1px, transparent 1px)", backgroundSize: "36px 36px", opacity: 0.4 }} />
+      <div className="absolute inset-0 pointer-events-none opacity-40"
+        style={{ backgroundImage: "radial-gradient(#BFDBFE 1px, transparent 1px)", backgroundSize: "34px 34px" }} />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="tes-header text-center mb-14">
@@ -45,30 +41,29 @@ export function Testimonials() {
           <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-4">
             56 reseñas verificadas <span className="text-gradient">en Doctoralia</span>
           </h2>
-          <p className="text-slate-500 text-lg max-w-xl mx-auto">
-            Pacientes reales, experiencias reales. Promedio 5.0 estrellas.
-          </p>
-          <div className="flex items-center justify-center gap-2 mt-5">
+          <div className="flex items-center justify-center gap-1 mt-4">
             {[1,2,3,4,5].map(s => <span key={s} className="text-yellow-400 text-xl">★</span>)}
-            <span className="font-black text-slate-900 text-xl ml-1">5.0</span>
-            <span className="text-slate-400 text-sm">· 56 reseñas</span>
+            <span className="font-black text-slate-900 text-xl ml-2">5.0</span>
+            <span className="text-slate-400 text-sm ml-1">· 56 reseñas</span>
           </div>
         </div>
 
-        <div className="tes-grid grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {testimonials.map(t => (
-            <div
+        {/* Draggable carousel on mobile, grid on desktop */}
+        <div className="hidden md:grid md:grid-cols-3 gap-5">
+          {testimonials.map((t, i) => (
+            <motion.div
               key={t.name}
-              className="tes-card group bg-white border border-blue-100 rounded-3xl p-6 hover:border-blue-300 hover:shadow-xl hover:shadow-blue-100/60 transition-all duration-300 flex flex-col gap-4"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.6, delay: (i % 3) * 0.1, ease: [0.22,1,0.36,1] }}
+              whileHover={{ y: -5, boxShadow: "0 16px 40px rgba(37,99,235,0.12)" }}
+              className="bg-white border border-blue-100 rounded-3xl p-6 flex flex-col gap-4 hover:border-blue-200 transition-colors duration-200"
             >
               <div className="flex gap-0.5">
-                {Array.from({ length: t.stars }).map((_,i) => (
-                  <span key={i} className="text-yellow-400 text-sm">★</span>
-                ))}
+                {Array.from({length: t.stars}).map((_,k) => <span key={k} className="text-yellow-400 text-sm">★</span>)}
               </div>
-              <p className="text-slate-600 text-sm leading-relaxed flex-1">
-                &ldquo;{t.text}&rdquo;
-              </p>
+              <p className="text-slate-600 text-sm leading-relaxed flex-1">&ldquo;{t.text}&rdquo;</p>
               <div className="flex items-center gap-3 pt-3 border-t border-blue-50">
                 <div className={`w-9 h-9 rounded-full ${t.color} text-white flex items-center justify-center text-sm font-bold flex-shrink-0`}>
                   {t.ini}
@@ -78,22 +73,57 @@ export function Testimonials() {
                   <p className="text-xs text-blue-400">{t.role}</p>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
-        {/* Doctoralia badge */}
+        {/* Mobile: Framer drag scroll */}
+        <div className="md:hidden overflow-hidden">
+          <motion.div
+            drag="x"
+            dragConstraints={{ right: 0, left: -(testimonials.length - 1) * 300 }}
+            dragElastic={0.1}
+            className="flex gap-4 cursor-grab active:cursor-grabbing"
+            style={{ width: `${testimonials.length * 290}px` }}
+          >
+            {testimonials.map((t, i) => (
+              <motion.div
+                key={t.name}
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.06 }}
+                className="w-[270px] flex-shrink-0 bg-white border border-blue-100 rounded-3xl p-5 flex flex-col gap-3"
+              >
+                <div className="flex gap-0.5">
+                  {Array.from({length: t.stars}).map((_,k) => <span key={k} className="text-yellow-400 text-sm">★</span>)}
+                </div>
+                <p className="text-slate-600 text-sm leading-relaxed flex-1">&ldquo;{t.text}&rdquo;</p>
+                <div className="flex items-center gap-3 pt-2 border-t border-blue-50">
+                  <div className={`w-8 h-8 rounded-full ${t.color} text-white flex items-center justify-center text-xs font-bold flex-shrink-0`}>{t.ini}</div>
+                  <div>
+                    <p className="text-xs font-bold text-slate-800">{t.name}</p>
+                    <p className="text-[10px] text-blue-400">{t.role}</p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+          <p className="text-center text-xs text-slate-400 mt-4">← Arrastra para ver más →</p>
+        </div>
+
         <div className="text-center mt-12">
-          <a
+          <motion.a
             href="https://www.doctoralia.co/camila-londono-galeano/odontologo/medellin"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 bg-white border border-blue-200 text-slate-700 font-semibold px-6 py-3 rounded-full hover:border-blue-400 hover:shadow-md transition-all duration-200 text-sm"
+            target="_blank" rel="noopener noreferrer"
+            whileHover={{ scale: 1.04, boxShadow: "0 6px 20px rgba(37,99,235,0.15)" }}
+            whileTap={{ scale: 0.97 }}
+            className="inline-flex items-center gap-3 bg-white border border-blue-200 text-slate-700 font-semibold px-6 py-3 rounded-full text-sm"
           >
             <span className="text-lg">🏥</span>
             Ver todas las reseñas en Doctoralia
             <span className="text-blue-500">→</span>
-          </a>
+          </motion.a>
         </div>
       </div>
     </section>
