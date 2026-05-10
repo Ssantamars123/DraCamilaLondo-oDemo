@@ -6,14 +6,18 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { motion } from "framer-motion";
+import {
+  GraduationCap, Globe, CreditCard, Microscope,
+  Calendar, Instagram, ArrowRight, Quote,
+} from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const cards = [
-  { icon: "🎓", title: "Fundación Uni. Autónoma de las Américas", desc: "Formación de excelencia con enfoque clínico integral." },
-  { icon: "🌍", title: "Español e Inglés", desc: "Atención bilingüe para pacientes locales e internacionales." },
-  { icon: "💳", title: "Múltiples formas de pago", desc: "Efectivo, tarjetas débito/crédito y transferencias bancarias." },
-  { icon: "🔬", title: "Tecnología de punta", desc: "Equipos modernos para diagnósticos precisos y sin dolor." },
+  { Icon: GraduationCap, title: "Fundación Uni. Autónoma de las Américas", desc: "Formación de excelencia con enfoque clínico integral." },
+  { Icon: Globe,         title: "Español e Inglés",                         desc: "Atención bilingüe para pacientes locales e internacionales." },
+  { Icon: CreditCard,    title: "Múltiples formas de pago",                  desc: "Efectivo, tarjetas débito/crédito y transferencias bancarias." },
+  { Icon: Microscope,    title: "Tecnología de punta",                       desc: "Equipos modernos para diagnósticos precisos y sin dolor." },
 ];
 
 export function About() {
@@ -80,9 +84,11 @@ export function About() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.1 }}
-                className="h-64 rounded-3xl bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center text-7xl"
+                className="h-64 rounded-3xl bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center"
               >
-                😊
+                <div className="w-20 h-20 rounded-full bg-blue-200 flex items-center justify-center">
+                  <Calendar size={36} className="text-blue-600" />
+                </div>
               </motion.div>
             </div>
           </div>
@@ -99,7 +105,7 @@ export function About() {
               "Mi pasión es devolverte la confianza de sonreír."
             </p>
             <div className="flex items-center gap-2 mt-3">
-              <div className="w-5 h-5 rounded-full bg-blue-600 flex items-center justify-center text-[10px] text-white font-bold">C</div>
+              <Quote size={14} className="text-blue-400" />
               <p className="text-xs font-bold text-blue-700">Dra. Camila Londoño Galeano</p>
             </div>
           </motion.div>
@@ -163,7 +169,7 @@ export function About() {
                 whileHover={{ scale: 1.02, borderColor: "#93C5FD" }}
                 className="p-4 rounded-2xl bg-blue-50/60 border border-blue-100 transition-colors duration-200"
               >
-                <span className="text-2xl block mb-2">{c.icon}</span>
+                <div className="mb-2 text-blue-600"><c.Icon size={20} /></div>
                 <p className="text-xs font-bold text-slate-800 leading-snug">{c.title}</p>
                 <p className="text-xs text-slate-500 mt-1 leading-snug">{c.desc}</p>
               </motion.div>
@@ -183,7 +189,7 @@ export function About() {
               onClick={() => document.querySelector("#contacto")?.scrollIntoView({ behavior: "smooth" })}
               className="inline-flex items-center gap-2 bg-blue-600 text-white font-bold px-7 py-3.5 rounded-full"
             >
-              Agendar cita <span>→</span>
+              <Calendar size={16} /> Agendar cita <ArrowRight size={15} />
             </motion.button>
             <motion.a
               whileHover={{ scale: 1.05 }}
@@ -192,7 +198,7 @@ export function About() {
               target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center gap-2 border-2 border-blue-100 text-slate-600 font-semibold px-7 py-3.5 rounded-full hover:border-pink-300 hover:text-pink-600 transition-colors duration-200"
             >
-              📸 Instagram
+              <Instagram size={16} /> Instagram
             </motion.a>
           </motion.div>
         </div>
