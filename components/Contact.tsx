@@ -63,7 +63,7 @@ export function Contact() {
             <motion.h2
               initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
               transition={{ duration: 0.7, ease: [0.22,1,0.36,1] }}
-              className="text-4xl md:text-5xl font-black text-slate-900 leading-tight mb-4"
+              className="text-4xl md:text-5xl font-display font-bold text-slate-900 leading-tight mb-4"
             >
               Agenda tu cita<br /><span className="text-gradient">hoy mismo</span>
             </motion.h2>

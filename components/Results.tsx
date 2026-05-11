@@ -51,10 +51,10 @@ export function Results() {
             <span className="text-blue-600 text-xs font-bold tracking-widest uppercase">Resultados reales</span>
           </motion.div>
           <div className="overflow-hidden">
-            <div className="res-line text-4xl md:text-5xl font-black text-slate-900 mb-1">Arrastra y ve la</div>
+            <div className="res-line text-4xl md:text-5xl font-display font-bold text-slate-900 mb-1">Arrastra y ve la</div>
           </div>
           <div className="overflow-hidden">
-            <div className="res-line text-4xl md:text-5xl font-black text-gradient mb-4">transformación</div>
+            <div className="res-line text-4xl md:text-5xl font-display font-bold text-gradient mb-4">transformación</div>
           </div>
           <p className="text-slate-500 text-lg max-w-xl mx-auto">
             Casos reales de pacientes de la Dra. Camila. Arrastra el slider para comparar.

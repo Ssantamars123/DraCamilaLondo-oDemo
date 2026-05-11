@@ -34,19 +34,21 @@ export function Navbar() {
       initial={{ y: -70, opacity: 0 }}
       animate={{ y: 0,   opacity: 1  }}
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-400 ${
-        scrolled
-          ? "bg-white/90 backdrop-blur-xl shadow-sm shadow-blue-100/50 border-b border-blue-50"
-          : "bg-transparent"
-      }`}
+      className="fixed inset-x-0 top-4 z-50 px-4 pointer-events-none"
     >
-      <nav className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <nav
+        className={`pointer-events-auto max-w-6xl mx-auto px-4 md:px-5 h-14 flex items-center justify-between rounded-full border border-white/60 transition-all duration-300 ${
+          scrolled
+            ? "bg-white/85 backdrop-blur-xl shadow-lg shadow-blue-200/40"
+            : "bg-white/70 backdrop-blur-md shadow-md shadow-blue-100/30"
+        }`}
+      >
         {/* Logo */}
         <motion.button
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           onClick={() => go("#inicio")}
-          className="flex flex-col leading-none"
+          className="flex flex-col leading-none gap-1"
         >
           <span className="text-[15px] font-extrabold text-slate-900 tracking-tight">Dra. Camila Londoño</span>
           <span className="text-[9px] text-blue-500 tracking-[0.22em] uppercase">Odontóloga · Medellín</span>
@@ -103,7 +105,7 @@ export function Navbar() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="md:hidden overflow-hidden bg-white border-b border-blue-50"
+            className="pointer-events-auto md:hidden overflow-hidden mx-auto mt-2 max-w-6xl bg-white/95 backdrop-blur-xl rounded-3xl border border-white/60 shadow-lg shadow-blue-100/40"
           >
             <ul className="px-6 py-4 flex flex-col gap-3">
               {links.map((l, i) => (

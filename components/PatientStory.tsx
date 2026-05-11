@@ -128,7 +128,7 @@ export function PatientStory() {
             <Quote size={28} className="text-blue-400" />
 
             <div>
-              <h2 className="font-black leading-[1.05] tracking-tight text-white mb-4"
+              <h2 className="font-display font-bold leading-[1.05] text-white mb-4"
                 style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}>
                 <span className="block overflow-hidden">
                   <span className="ps-text-line block">Recuperé mi</span>

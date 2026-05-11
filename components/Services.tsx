@@ -60,7 +60,7 @@ export function Services() {
             <div className="inline-flex items-center gap-2 bg-blue-50 border border-blue-200 rounded-full px-4 py-1.5 mb-6">
               <span className="text-blue-600 text-xs font-bold tracking-widest uppercase">Tratamientos</span>
             </div>
-            <h2 className="font-black leading-[1.0] tracking-tight text-slate-900"
+            <h2 className="font-display font-bold leading-[1.0] text-slate-900"
               style={{ fontSize: "clamp(2.5rem, 5.5vw, 4.5rem)" }}>
               <span className="block overflow-hidden">
                 <span className="svc-title-line block">Todo lo que</span>

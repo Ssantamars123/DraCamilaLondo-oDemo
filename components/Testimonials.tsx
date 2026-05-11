@@ -39,7 +39,7 @@ export function Testimonials() {
           <div className="inline-flex items-center gap-2 bg-white border border-blue-200 rounded-full px-4 py-1.5 mb-4 shadow-sm">
             <span className="text-blue-600 text-xs font-bold tracking-widest uppercase">Testimonios</span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-4">
+          <h2 className="text-4xl md:text-5xl font-display font-bold text-slate-900 mb-4">
             56 reseñas verificadas <span className="text-gradient">en Doctoralia</span>
           </h2>
           <div className="flex items-center justify-center gap-1 mt-4">

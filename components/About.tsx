@@ -125,7 +125,7 @@ export function About() {
               <span className="text-blue-600 text-xs font-bold tracking-widest uppercase">Sobre mí</span>
             </div>
 
-            <h2 className="font-black leading-[1.0] tracking-tight text-slate-900 mb-6"
+            <h2 className="font-display font-bold leading-[1.0] text-slate-900 mb-6"
               style={{ fontSize: "clamp(2.4rem, 5vw, 4rem)" }}>
               <span className="block overflow-hidden">
                 <span className="abt-line block">Cuidando</span>

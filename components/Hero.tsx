@@ -9,6 +9,7 @@ import { useGSAP } from "@gsap/react";
 gsap.registerPlugin(ScrollTrigger);
 import { motion } from "framer-motion";
 import { Calendar, MessageCircle, ArrowRight, Star, BadgeCheck } from "lucide-react";
+import { Magnetic } from "@/components/Magnetic";
 
 const WA = "https://api.whatsapp.com/send?phone=573102481468&text=Hola,%20quiero%20agendar%20una%20cita";
 
@@ -86,14 +87,14 @@ export function Hero() {
           </span>
         </div>
 
-        {/* Headline — each line clipped independently */}
-        <h1 className="font-black leading-[0.95] tracking-tight text-slate-900 mb-8"
-          style={{ fontSize: "clamp(3.2rem, 7.5vw, 6.5rem)" }}>
+        {/* Headline — editorial serif, italic accent on key word */}
+        <h1 className="font-display font-bold leading-[0.92] text-slate-900 mb-8"
+          style={{ fontSize: "clamp(3.4rem, 7.8vw, 6.8rem)" }}>
           <span className="block overflow-hidden">
             <span className="hero-line block">Tu mejor</span>
           </span>
           <span className="block overflow-hidden">
-            <span className="hero-line block text-gradient">sonrisa</span>
+            <span className="hero-line block italic font-light text-gradient">sonrisa</span>
           </span>
           <span className="block overflow-hidden">
             <span className="hero-line block">comienza aquí.</span>
@@ -107,29 +108,32 @@ export function Hero() {
           7,000 pacientes. Ortodoncia, estética e implantes en Belén La Palma.
         </p>
 
-        {/* CTAs */}
+        {/* CTAs — magnetic premium */}
         <div className="flex flex-wrap gap-3 mb-12">
-          <motion.button
-            className="hero-cta inline-flex items-center gap-2.5 bg-blue-600 text-white font-bold px-8 py-4 rounded-full text-[15px]"
-            whileHover={{ scale: 1.04, boxShadow: "0 12px 40px rgba(37,99,235,0.4)" }}
-            whileTap={{ scale: 0.97 }}
-            onClick={() => go("#contacto")}
-          >
-            <Calendar size={16} />
-            Agendar cita
-            <ArrowRight size={15} />
-          </motion.button>
+          <Magnetic strength={0.3}>
+            <motion.button
+              className="hero-cta inline-flex items-center gap-2.5 bg-slate-900 text-white font-semibold px-8 py-4 rounded-full text-[15px] shadow-lg shadow-slate-900/20"
+              whileHover={{ boxShadow: "0 18px 50px rgba(15,23,42,0.35)" }}
+              whileTap={{ scale: 0.97 }}
+              onClick={() => go("#contacto")}
+            >
+              <Calendar size={16} />
+              Agendar cita
+              <ArrowRight size={15} />
+            </motion.button>
+          </Magnetic>
 
-          <motion.a
-            className="hero-cta inline-flex items-center gap-2.5 border-2 border-slate-200 text-slate-700 font-semibold px-8 py-4 rounded-full text-[15px] hover:border-blue-300 hover:text-blue-700 transition-colors duration-200"
-            href={WA}
-            target="_blank" rel="noopener noreferrer"
-            whileHover={{ scale: 1.04 }}
-            whileTap={{ scale: 0.97 }}
-          >
-            <MessageCircle size={17} />
-            WhatsApp
-          </motion.a>
+          <Magnetic strength={0.25}>
+            <motion.a
+              className="hero-cta inline-flex items-center gap-2.5 border border-slate-300 text-slate-700 font-medium px-8 py-4 rounded-full text-[15px] hover:border-slate-900 hover:text-slate-900 transition-colors duration-200"
+              href={WA}
+              target="_blank" rel="noopener noreferrer"
+              whileTap={{ scale: 0.97 }}
+            >
+              <MessageCircle size={17} />
+              WhatsApp
+            </motion.a>
+          </Magnetic>
         </div>
 
         {/* Stats row */}
@@ -140,7 +144,7 @@ export function Hero() {
             { val: "5.0",  lbl: "Calificación Doctoralia" },
           ].map((s) => (
             <div key={s.lbl} className="hero-stat flex flex-col gap-1">
-              <span className="text-3xl font-black text-blue-600 leading-none">{s.val}</span>
+              <span className="font-display text-4xl font-semibold text-slate-900 leading-none">{s.val}</span>
               <span className="text-[11px] text-slate-400 uppercase tracking-widest leading-tight">{s.lbl}</span>
             </div>
           ))}
@@ -148,13 +152,33 @@ export function Hero() {
       </div>
 
       {/* ── RIGHT PANEL — full-height image ── */}
-      {/* bg matches the photo's neutral gray so object-contain blends seamlessly */}
-      <div className="hidden md:block absolute right-0 top-0 h-full w-[46%] lg:w-[48%]"
-        style={{ background: "#e2e2e2" }}>
-        {/* Blue accent stripe */}
-        <div className="absolute left-0 top-0 h-full w-10 bg-blue-600 z-10" />
+      {/* seamless white bg, dental-themed creative composition */}
+      <div className="hidden md:block absolute right-0 top-0 h-full w-[46%] lg:w-[48%] bg-white overflow-hidden grain">
 
-        <div ref={imgRef} className="absolute inset-0 pl-14 pr-8 pt-20 pb-16">
+        {/* Layered radial glows — depth */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(55% 50% at 60% 50%, rgba(37,99,235,0.12) 0%, rgba(37,99,235,0.04) 50%, rgba(255,255,255,0) 78%), radial-gradient(40% 35% at 25% 80%, rgba(56,189,248,0.10) 0%, rgba(255,255,255,0) 70%)",
+          }}
+        />
+
+        {/* Tooth-shape soft blob behind subject */}
+        <svg
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[55%] w-[78%] opacity-[0.07] pointer-events-none"
+          viewBox="0 0 200 220" fill="none" aria-hidden
+        >
+          <path
+            d="M100 10C140 10 175 30 175 75c0 35-12 60-18 95-5 30-15 40-30 40-12 0-15-25-27-25s-15 25-27 25c-15 0-25-10-30-40C37 135 25 110 25 75 25 30 60 10 100 10Z"
+            fill="#2563eb"
+          />
+        </svg>
+
+        {/* Dotted ring — orbit accent */}
+        <div className="absolute top-24 right-12 w-32 h-32 rounded-full border-2 border-dashed border-blue-200/60 pointer-events-none animate-[spin_40s_linear_infinite]" />
+
+        <div ref={imgRef} className="absolute left-0 right-0 top-28 bottom-28 px-8">
           <Image
             src="/DraCamila.png"
             alt="Dra. Camila Londoño Galeano — Odontóloga"
@@ -166,35 +190,48 @@ export function Hero() {
           />
         </div>
 
-        {/* Badge — matrícula */}
-        <div className="hero-badge absolute bottom-12 left-14 z-20 bg-white rounded-2xl shadow-xl shadow-blue-100 px-5 py-4 flex items-center gap-4">
-          <div className="w-11 h-11 rounded-xl bg-blue-600 flex items-center justify-center text-white flex-shrink-0">
-            <BadgeCheck size={22} />
-          </div>
-          <div>
-            <p className="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Matrícula profesional</p>
-            <p className="text-sm font-black text-slate-800">1033652489</p>
-          </div>
-        </div>
+{/* Smile-curve SVG arc — subtle accent under subject */}
+        <svg
+          className="absolute bottom-24 left-1/2 -translate-x-1/2 w-[75%] pointer-events-none opacity-60"
+          viewBox="0 0 300 40" fill="none" aria-hidden
+        >
+          <path d="M5 5 Q150 55 295 5" stroke="url(#smileGrad)" strokeWidth="2" strokeLinecap="round" strokeDasharray="1 6" />
+          <defs>
+            <linearGradient id="smileGrad" x1="0" x2="1">
+              <stop offset="0%" stopColor="#60a5fa" stopOpacity="0" />
+              <stop offset="50%" stopColor="#2563eb" stopOpacity="1" />
+              <stop offset="100%" stopColor="#60a5fa" stopOpacity="0" />
+            </linearGradient>
+          </defs>
+        </svg>
 
-        {/* Badge — rating */}
-        <div className="hero-badge absolute top-28 right-8 z-20 bg-blue-600 text-white rounded-2xl shadow-xl shadow-blue-300/40 px-5 py-4">
-          <p className="text-[10px] text-blue-200 uppercase tracking-widest font-bold mb-1">Doctoralia</p>
+        {/* Single unified pill — bottom of image, all credentials grouped */}
+        <div className="hero-badge absolute bottom-8 left-1/2 -translate-x-1/2 z-20 bg-white/95 backdrop-blur-md rounded-full shadow-xl shadow-blue-200/40 ring-1 ring-slate-100 px-6 py-3 flex items-center gap-5 whitespace-nowrap">
+          {/* Rating */}
           <div className="flex items-center gap-2">
-            <span className="text-2xl font-black leading-none">5.0</span>
-            <div className="flex flex-col gap-0.5">
-              <div className="flex gap-0.5">
-                {[1,2,3,4,5].map(i => <Star key={i} size={10} className="text-yellow-300 fill-yellow-300" />)}
-              </div>
-              <span className="text-[10px] text-blue-200">56 reseñas</span>
+            <div className="flex gap-0.5">
+              {[1,2,3,4,5].map(i => <Star key={i} size={11} className="text-yellow-400 fill-yellow-400" />)}
             </div>
+            <span className="text-sm font-black text-slate-900">5.0</span>
+            <span className="text-[10px] text-slate-400 font-medium">Doctoralia</span>
           </div>
-        </div>
 
-        {/* Badge — año */}
-        <div className="hero-badge absolute top-1/2 left-14 -translate-y-1/2 z-20 bg-white border border-blue-100 rounded-2xl shadow-lg px-4 py-3 text-center">
-          <span className="text-[10px] text-blue-500 font-bold uppercase tracking-widest block">Desde</span>
-          <span className="text-2xl font-black text-slate-900 leading-none">2016</span>
+          <span className="h-5 w-px bg-slate-200" />
+
+          {/* Matrícula */}
+          <div className="flex items-center gap-1.5">
+            <BadgeCheck size={14} className="text-blue-600" />
+            <span className="text-[10px] text-slate-400 uppercase tracking-wider font-bold">M.P.</span>
+            <span className="text-sm font-black text-slate-900">1033652489</span>
+          </div>
+
+          <span className="h-5 w-px bg-slate-200" />
+
+          {/* Año */}
+          <div className="flex items-center gap-1.5">
+            <span className="text-[10px] text-slate-400 uppercase tracking-wider font-bold">Desde</span>
+            <span className="text-sm font-black text-slate-900">2016</span>
+          </div>
         </div>
       </div>
 

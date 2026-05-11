@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+@theme {
+  --font-serif: var(--font-serif), Georgia, "Times New Roman", serif;
+  --color-cream: #FAF7F2;
+  --color-cream-dark: #F0EAE0;
+  --color-gold: #B8895A;
+  --color-gold-dark: #8B6840;
+  --color-navy: #0A1A35;
+}
+
 :root {
   --blue-700: #1d4ed8;
   --blue-600: #2563EB;
@@ -12,6 +21,9 @@
   --slate-600: #475569;
   --slate-400: #94A3B8;
   --white:    #FFFFFF;
+  --cream:    #FAF7F2;
+  --gold:     #B8895A;
+  --navy:     #0A1A35;
 }
 
 html { scroll-behavior: auto; }
@@ -62,3 +74,34 @@ body {
   background: #DBEAFE;
   color: #1d4ed8;
 }
+
+/* Editorial serif display — Playfair, premium clínico */
+.font-display {
+  font-family: var(--font-serif), "Playfair Display", Georgia, "Times New Roman", serif;
+  font-optical-sizing: auto;
+  letter-spacing: -0.025em;
+  font-feature-settings: "lnum", "kern";
+}
+
+/* Subtle grain overlay — film texture for depth */
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.4;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.04, 0 0 0 0 0.1, 0 0 0 0 0.2, 0 0 0 0.55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+/* Gold accent gradient for premium highlights */
+.text-gold-gradient {
+  background: linear-gradient(120deg, #8B6840 0%, #C9A87C 50%, #8B6840 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Magnetic button hover smoothing */
+.magnetic { transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); }
+
