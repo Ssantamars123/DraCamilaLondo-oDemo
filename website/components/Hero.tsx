@@ -154,13 +154,13 @@ export function Hero() {
         {/* Blue accent stripe */}
         <div className="absolute left-0 top-0 h-full w-10 bg-blue-600 z-10" />
 
-        <div ref={imgRef} className="absolute inset-0 pl-10 pt-12 pb-6">
+        <div ref={imgRef} className="absolute inset-0 pl-14 pr-8 pt-20 pb-16">
           <Image
             src="/DraCamila.png"
             alt="Dra. Camila Londoño Galeano — Odontóloga"
             fill
             className="object-contain"
-            style={{ objectPosition: "center 60%" }}
+            style={{ objectPosition: "center 65%" }}
             priority
             sizes="48vw"
           />
