@@ -62,9 +62,11 @@ export function About() {
 
       <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-0 items-stretch min-h-[80vh] py-24">
 
-        {/* LEFT — single photo */}
-        <div ref={imgRef} className="relative min-h-[480px] md:min-h-full">
-          <div className="relative h-full w-full rounded-3xl overflow-hidden shadow-2xl shadow-blue-100 min-h-[480px]">
+        {/* LEFT — mosaic: main portrait + 2 smaller cards */}
+        <div ref={imgRef} className="flex flex-col gap-3 min-h-[480px]">
+
+          {/* Main portrait — dracamila2 */}
+          <div className="relative flex-1 rounded-3xl overflow-hidden shadow-2xl shadow-blue-100 min-h-[300px]">
             <Image
               src="/dracamila2.png"
               alt="Dra. Camila Londoño Galeano"
@@ -74,20 +76,47 @@ export function About() {
             />
             <div className="absolute inset-x-0 bottom-0 h-2/5 pointer-events-none"
               style={{ background: "linear-gradient(to top, rgba(37,99,235,0.65) 0%, transparent 100%)" }} />
-
-            {/* Year badge */}
-            <div className="absolute bottom-7 left-7 text-white">
+            <div className="absolute bottom-6 left-6 text-white">
               <span className="text-[11px] font-bold tracking-[0.2em] uppercase text-blue-200 block mb-1">Ejerciendo desde</span>
-              <span className="text-5xl font-black leading-none">2016</span>
+              <span className="text-4xl font-black leading-none">2016</span>
             </div>
+          </div>
 
-            {/* Quote */}
-            <div className="absolute bottom-7 right-7 max-w-[170px] bg-white/90 backdrop-blur rounded-2xl px-4 py-3 shadow-lg">
-              <Quote size={13} className="text-blue-400 mb-1.5" />
-              <p className="text-slate-700 text-[11px] font-medium leading-snug italic">
-                "Mi pasión es devolverte la confianza de sonreír."
-              </p>
-            </div>
+          {/* Bottom row: casual photo + quote */}
+          <div className="grid grid-cols-2 gap-3">
+            {/* dracamila3 — casual behind the scenes */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.25 }}
+              className="relative h-44 rounded-2xl overflow-hidden shadow-md"
+            >
+              <Image
+                src="/dracamila3.png"
+                alt="Dra. Camila en el consultorio"
+                fill
+                className="object-cover"
+                style={{ objectPosition: "center 20%" }}
+              />
+            </motion.div>
+
+            {/* Quote card */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.35 }}
+              className="h-44 rounded-2xl bg-blue-600 p-5 flex flex-col justify-between shadow-md shadow-blue-200"
+            >
+              <Quote size={18} className="text-blue-300" />
+              <div>
+                <p className="text-white text-xs font-medium leading-snug italic">
+                  "Mi pasión es devolverte la confianza de sonreír."
+                </p>
+                <p className="text-blue-300 text-[10px] font-bold mt-2 uppercase tracking-widest">Dra. Camila</p>
+              </div>
+            </motion.div>
           </div>
         </div>
 
