@@ -157,7 +157,8 @@ export function Hero() {
             src="/DraCamila.png"
             alt="Dra. Camila Londoño Galeano — Odontóloga"
             fill
-            className="object-cover object-top"
+            className="object-cover"
+            style={{ objectPosition: "50% 15%" }}
             priority
             sizes="48vw"
           />
