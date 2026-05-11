@@ -147,27 +147,23 @@ export function Hero() {
         </div>
       </div>
 
-      {/* ── RIGHT PANEL — framed photo ── */}
-      <div className="hidden md:block absolute right-0 top-0 h-full w-[46%] lg:w-[48%] bg-blue-50">
+      {/* ── RIGHT PANEL — full-height image ── */}
+      {/* bg matches the photo's neutral gray so object-contain blends seamlessly */}
+      <div className="hidden md:block absolute right-0 top-0 h-full w-[46%] lg:w-[48%]"
+        style={{ background: "#e2e2e2" }}>
         {/* Blue accent stripe */}
         <div className="absolute left-0 top-0 h-full w-10 bg-blue-600 z-10" />
 
-        {/* Photo — framed, naturally proportioned */}
-        <div
-          ref={imgRef}
-          className="absolute inset-0 flex items-end justify-center pl-10 pr-6 pb-0 pt-20"
-        >
-          <div className="relative w-full max-w-sm" style={{ aspectRatio: "3/4" }}>
-            <Image
-              src="/DraCamila.png"
-              alt="Dra. Camila Londoño Galeano — Odontóloga"
-              fill
-              className="object-cover rounded-t-[2.5rem]"
-              style={{ objectPosition: "center top" }}
-              priority
-              sizes="40vw"
-            />
-          </div>
+        <div ref={imgRef} className="absolute inset-0 pl-10">
+          <Image
+            src="/DraCamila.png"
+            alt="Dra. Camila Londoño Galeano — Odontóloga"
+            fill
+            className="object-contain"
+            style={{ objectPosition: "center 60%" }}
+            priority
+            sizes="48vw"
+          />
         </div>
 
         {/* Badge — matrícula */}
