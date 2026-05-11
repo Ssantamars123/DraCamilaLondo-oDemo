@@ -147,33 +147,31 @@ export function Hero() {
         </div>
       </div>
 
-      {/* ── RIGHT PANEL — full-height image ── */}
-      <div className="hidden md:block absolute right-0 top-0 h-full w-[46%] lg:w-[48%]">
+      {/* ── RIGHT PANEL — framed photo ── */}
+      <div className="hidden md:block absolute right-0 top-0 h-full w-[46%] lg:w-[48%] bg-blue-50">
         {/* Blue accent stripe */}
         <div className="absolute left-0 top-0 h-full w-10 bg-blue-600 z-10" />
 
-        <div ref={imgRef} className="h-full w-full">
-          <Image
-            src="/DraCamila.png"
-            alt="Dra. Camila Londoño Galeano — Odontóloga"
-            fill
-            className="object-cover"
-            style={{ objectPosition: "50% 15%" }}
-            priority
-            sizes="48vw"
-          />
+        {/* Photo — framed, naturally proportioned */}
+        <div
+          ref={imgRef}
+          className="absolute inset-0 flex items-end justify-center pl-10 pr-6 pb-0 pt-20"
+        >
+          <div className="relative w-full max-w-sm" style={{ aspectRatio: "3/4" }}>
+            <Image
+              src="/DraCamila.png"
+              alt="Dra. Camila Londoño Galeano — Odontóloga"
+              fill
+              className="object-cover rounded-t-[2.5rem]"
+              style={{ objectPosition: "center top" }}
+              priority
+              sizes="40vw"
+            />
+          </div>
         </div>
 
-        {/* Bottom gradient overlay */}
-        <div className="absolute inset-x-0 bottom-0 h-48 z-10"
-          style={{ background: "linear-gradient(to top, rgba(255,255,255,0.9) 0%, transparent 100%)" }} />
-
-        {/* Top gradient */}
-        <div className="absolute inset-x-0 top-0 h-32 z-10"
-          style={{ background: "linear-gradient(to bottom, rgba(255,255,255,0.6) 0%, transparent 100%)" }} />
-
         {/* Badge — matrícula */}
-        <div className="hero-badge absolute bottom-16 left-8 z-20 bg-white rounded-2xl shadow-xl shadow-blue-100 px-5 py-4 flex items-center gap-4">
+        <div className="hero-badge absolute bottom-12 left-14 z-20 bg-white rounded-2xl shadow-xl shadow-blue-100 px-5 py-4 flex items-center gap-4">
           <div className="w-11 h-11 rounded-xl bg-blue-600 flex items-center justify-center text-white flex-shrink-0">
             <BadgeCheck size={22} />
           </div>
@@ -184,7 +182,7 @@ export function Hero() {
         </div>
 
         {/* Badge — rating */}
-        <div className="hero-badge absolute top-32 right-8 z-20 bg-blue-600 text-white rounded-2xl shadow-xl shadow-blue-300/40 px-5 py-4">
+        <div className="hero-badge absolute top-28 right-8 z-20 bg-blue-600 text-white rounded-2xl shadow-xl shadow-blue-300/40 px-5 py-4">
           <p className="text-[10px] text-blue-200 uppercase tracking-widest font-bold mb-1">Doctoralia</p>
           <div className="flex items-center gap-2">
             <span className="text-2xl font-black leading-none">5.0</span>
@@ -198,7 +196,7 @@ export function Hero() {
         </div>
 
         {/* Badge — año */}
-        <div className="hero-badge absolute top-1/2 left-4 -translate-y-1/2 z-20 bg-white border border-blue-100 rounded-2xl shadow-lg px-4 py-3 text-center">
+        <div className="hero-badge absolute top-1/2 left-14 -translate-y-1/2 z-20 bg-white border border-blue-100 rounded-2xl shadow-lg px-4 py-3 text-center">
           <span className="text-[10px] text-blue-500 font-bold uppercase tracking-widest block">Desde</span>
           <span className="text-2xl font-black text-slate-900 leading-none">2016</span>
         </div>
