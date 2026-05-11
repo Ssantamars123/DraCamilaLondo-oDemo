@@ -62,37 +62,62 @@ export function About() {
 
       <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-0 items-stretch min-h-[80vh] py-24">
 
-        {/* LEFT — full-height photo */}
-        <div className="relative flex items-stretch">
-          <div ref={imgRef} className="relative w-full min-h-[480px] md:min-h-full rounded-3xl overflow-hidden shadow-2xl shadow-blue-100">
+        {/* LEFT — mosaic two photos */}
+        <div ref={imgRef} className="relative flex flex-col gap-3 min-h-[480px]">
+
+          {/* Main portrait */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="relative flex-1 rounded-3xl overflow-hidden shadow-2xl shadow-blue-100 min-h-[320px]"
+          >
             <Image
               src="/DraCamila.png"
               alt="Dra. Camila Londoño Galeano"
               fill
               className="object-cover object-top"
             />
-            {/* Blue accent at bottom */}
-            <div className="absolute inset-x-0 bottom-0 h-1/3 pointer-events-none"
-              style={{ background: "linear-gradient(to top, rgba(37,99,235,0.55) 0%, transparent 100%)" }} />
-
-            {/* Year badge */}
-            <div className="absolute bottom-8 left-8 text-white">
+            <div className="absolute inset-x-0 bottom-0 h-1/2 pointer-events-none"
+              style={{ background: "linear-gradient(to top, rgba(37,99,235,0.6) 0%, transparent 100%)" }} />
+            <div className="absolute bottom-6 left-6 text-white">
               <span className="text-[11px] font-bold tracking-[0.2em] uppercase text-blue-200 block mb-1">Ejerciendo desde</span>
-              <span className="text-5xl font-black leading-none">2016</span>
+              <span className="text-4xl font-black leading-none">2016</span>
             </div>
+          </motion.div>
 
-            {/* Quote card floating */}
+          {/* Second photo + quote row */}
+          <div className="grid grid-cols-2 gap-3">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: -16 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.4 }}
-              className="absolute bottom-8 right-8 bg-white rounded-2xl shadow-xl px-5 py-4 max-w-[200px]"
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="relative h-44 rounded-2xl overflow-hidden shadow-lg"
             >
-              <Quote size={14} className="text-blue-400 mb-2" />
-              <p className="text-slate-700 text-xs font-medium leading-snug italic">
-                "Mi pasión es devolverte la confianza de sonreír."
-              </p>
+              <Image
+                src="/dracamila2.png"
+                alt="Dra. Camila Londoño — foto casual"
+                fill
+                className="object-cover object-top"
+              />
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 16 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.3 }}
+              className="h-44 rounded-2xl bg-blue-600 p-5 flex flex-col justify-between shadow-lg shadow-blue-200"
+            >
+              <Quote size={18} className="text-blue-300" />
+              <div>
+                <p className="text-white text-xs font-medium leading-snug italic">
+                  "Mi pasión es devolverte la confianza de sonreír."
+                </p>
+                <p className="text-blue-300 text-[10px] font-bold mt-2 uppercase tracking-widest">Dra. Camila</p>
+              </div>
             </motion.div>
           </div>
         </div>
