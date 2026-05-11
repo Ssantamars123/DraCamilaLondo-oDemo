@@ -64,14 +64,14 @@ export function Hero() {
       },
     });
 
-    // Mobile image — fade-in reveal al entrar viewport (como el contenido)
+    // Mobile image — clip-path reveal idéntico a About images
     const mobileImg = sectionRef.current?.querySelector(".hero-mobile-img");
     if (mobileImg) {
       gsap.fromTo(mobileImg,
-        { opacity: 0, y: 60 },
+        { clipPath: "inset(100% 0% 0% 0%)", scale: 1.08 },
         {
-          opacity: 1, y: 0, duration: 1.1, ease: "power3.out",
-          scrollTrigger: { trigger: mobileImg, start: "top 85%", once: true },
+          clipPath: "inset(0% 0% 0% 0%)", scale: 1, duration: 1.3, ease: "power4.out",
+          scrollTrigger: { trigger: mobileImg, start: "top 75%" },
         }
       );
     }
@@ -181,13 +181,13 @@ export function Hero() {
             fill="#2563eb"
           />
         </svg>
-        <div className="absolute inset-x-0 top-4 bottom-4 px-6">
+        <div className="absolute inset-x-4 top-4 bottom-4 rounded-3xl overflow-hidden bg-slate-50">
           <Image
             src="/DraCamila.png"
             alt="Dra. Camila Londoño Galeano — Odontóloga"
             fill
-            className="object-contain"
-            style={{ objectPosition: "center 60%" }}
+            className="object-cover"
+            style={{ objectPosition: "center 25%" }}
             sizes="100vw"
           />
         </div>
