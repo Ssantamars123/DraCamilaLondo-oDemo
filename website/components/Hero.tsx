@@ -154,7 +154,7 @@ export function Hero() {
         {/* Blue accent stripe */}
         <div className="absolute left-0 top-0 h-full w-10 bg-blue-600 z-10" />
 
-        <div ref={imgRef} className="absolute inset-0 pl-10">
+        <div ref={imgRef} className="absolute inset-0 pl-10 pt-12 pb-6">
           <Image
             src="/DraCamila.png"
             alt="Dra. Camila Londoño Galeano — Odontóloga"
