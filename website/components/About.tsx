@@ -62,52 +62,50 @@ export function About() {
 
       <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-0 items-stretch min-h-[80vh] py-24">
 
-        {/* LEFT — mosaic: main portrait + 2 smaller cards */}
-        <div ref={imgRef} className="flex flex-col gap-3 min-h-[480px]">
+        {/* LEFT — mosaic: dracamila3 (portrait, main) + dracamila2 + quote below */}
+        <div ref={imgRef} className="flex flex-col gap-3 min-h-[540px]">
 
-          {/* Main portrait — dracamila2 */}
-          <div className="relative flex-1 rounded-3xl overflow-hidden shadow-2xl shadow-blue-100 min-h-[300px]">
+          {/* Top: dracamila3 — portrait, takes most height */}
+          <div className="relative flex-1 rounded-3xl overflow-hidden shadow-2xl shadow-blue-100 min-h-[340px]">
             <Image
-              src="/dracamila2.png"
-              alt="Dra. Camila Londoño Galeano"
+              src="/dracamila3.png"
+              alt="Dra. Camila Londoño en el consultorio"
               fill
               className="object-cover"
-              style={{ objectPosition: "center 10%" }}
+              style={{ objectPosition: "center 12%" }}
             />
-            <div className="absolute inset-x-0 bottom-0 h-2/5 pointer-events-none"
-              style={{ background: "linear-gradient(to top, rgba(37,99,235,0.65) 0%, transparent 100%)" }} />
+            <div className="absolute inset-x-0 bottom-0 h-1/3 pointer-events-none"
+              style={{ background: "linear-gradient(to top, rgba(37,99,235,0.6) 0%, transparent 100%)" }} />
             <div className="absolute bottom-6 left-6 text-white">
               <span className="text-[11px] font-bold tracking-[0.2em] uppercase text-blue-200 block mb-1">Ejerciendo desde</span>
               <span className="text-4xl font-black leading-none">2016</span>
             </div>
           </div>
 
-          {/* Bottom row: casual photo + quote */}
+          {/* Bottom row: dracamila2 (landscape fits h-40) + quote */}
           <div className="grid grid-cols-2 gap-3">
-            {/* dracamila3 — casual behind the scenes */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.25 }}
-              className="relative h-44 rounded-2xl overflow-hidden shadow-md"
+              className="relative h-40 rounded-2xl overflow-hidden shadow-md"
             >
               <Image
-                src="/dracamila3.png"
-                alt="Dra. Camila en el consultorio"
+                src="/dracamila2.png"
+                alt="Dra. Camila Londoño Galeano"
                 fill
                 className="object-cover"
                 style={{ objectPosition: "center 20%" }}
               />
             </motion.div>
 
-            {/* Quote card */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.35 }}
-              className="h-44 rounded-2xl bg-blue-600 p-5 flex flex-col justify-between shadow-md shadow-blue-200"
+              className="h-40 rounded-2xl bg-blue-600 p-5 flex flex-col justify-between shadow-md shadow-blue-200"
             >
               <Quote size={18} className="text-blue-300" />
               <div>
