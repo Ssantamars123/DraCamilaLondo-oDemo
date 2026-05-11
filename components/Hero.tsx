@@ -63,6 +63,18 @@ export function Hero() {
         scrub: true,
       },
     });
+
+    // Mobile image — fade-in reveal al entrar viewport (como el contenido)
+    const mobileImg = sectionRef.current?.querySelector(".hero-mobile-img");
+    if (mobileImg) {
+      gsap.fromTo(mobileImg,
+        { opacity: 0, y: 60 },
+        {
+          opacity: 1, y: 0, duration: 1.1, ease: "power3.out",
+          scrollTrigger: { trigger: mobileImg, start: "top 85%", once: true },
+        }
+      );
+    }
   }, { scope: sectionRef });
 
   const go = (id: string) => document.querySelector(id)?.scrollIntoView({ behavior: "smooth" });
@@ -71,10 +83,10 @@ export function Hero() {
     <section
       id="inicio"
       ref={sectionRef}
-      className="relative min-h-screen flex overflow-hidden bg-white"
+      className="relative min-h-screen flex flex-col md:flex-row overflow-hidden bg-white"
     >
       {/* ── LEFT PANEL ── */}
-      <div className="relative z-10 flex flex-col justify-center px-8 md:px-16 lg:px-24 pt-28 pb-16 w-full md:w-[58%] lg:w-[55%]">
+      <div className="relative z-10 flex flex-col justify-center px-8 md:px-16 lg:px-24 pt-28 pb-12 md:pb-16 w-full md:w-[58%] lg:w-[55%]">
 
         {/* Pill badge */}
         <div className="hero-sub mb-8 inline-flex items-center gap-2.5 w-fit">
@@ -151,7 +163,37 @@ export function Hero() {
         </div>
       </div>
 
-      {/* ── RIGHT PANEL — full-height image ── */}
+      {/* ── MOBILE IMAGE — visible solo < md, debajo del contenido ── */}
+      <div className="hero-mobile-img md:hidden relative w-full h-[60vh] min-h-[420px] bg-white overflow-hidden grain will-change-transform">
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(60% 55% at 50% 50%, rgba(37,99,235,0.12) 0%, rgba(37,99,235,0.04) 50%, rgba(255,255,255,0) 78%)",
+          }}
+        />
+        <svg
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[55%] w-[70%] opacity-[0.07] pointer-events-none"
+          viewBox="0 0 200 220" fill="none" aria-hidden
+        >
+          <path
+            d="M100 10C140 10 175 30 175 75c0 35-12 60-18 95-5 30-15 40-30 40-12 0-15-25-27-25s-15 25-27 25c-15 0-25-10-30-40C37 135 25 110 25 75 25 30 60 10 100 10Z"
+            fill="#2563eb"
+          />
+        </svg>
+        <div className="absolute inset-x-0 top-4 bottom-4 px-6">
+          <Image
+            src="/DraCamila.png"
+            alt="Dra. Camila Londoño Galeano — Odontóloga"
+            fill
+            className="object-contain"
+            style={{ objectPosition: "center 60%" }}
+            sizes="100vw"
+          />
+        </div>
+      </div>
+
+      {/* ── RIGHT PANEL — full-height image (desktop only) ── */}
       {/* seamless white bg, dental-themed creative composition */}
       <div className="hidden md:block absolute right-0 top-0 h-full w-[46%] lg:w-[48%] bg-white overflow-hidden grain">
 
